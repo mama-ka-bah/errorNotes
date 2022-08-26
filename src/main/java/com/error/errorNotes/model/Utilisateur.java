@@ -1,5 +1,6 @@
 package com.error.errorNotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,10 @@ public class Utilisateur {
 
     private String nom;
     private String prenom;
-    private String contact;
+    private String adresse;
 
 
+    @JsonIgnore
     @OneToOne
     private Compte compte;
 }
