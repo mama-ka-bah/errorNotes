@@ -1,6 +1,5 @@
 package com.error.errorNotes.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,8 +34,20 @@ public class Probleme {
     private Etat etat;
 
 
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+//definition de la relation entre les deux tables Jointable pour lier les deux colone dans chaque table
+    @JoinTable(
+            name = "probleme_technologies",
+            joinColumns = @JoinColumn(name = "techno_id"),
+            inverseJoinColumns = @JoinColumn(name = "probleme_id")
+    )
 
-    @ManyToMany
     private List<Technologie> technologies = new ArrayList<>();
 
 

@@ -27,6 +27,7 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
         compte.setPassword(password);
         compte.setRole("user");
         repositoryCompte.save(compte);
+        utilisateur.setCompte(compte);
         return repositoryUtilisateur.save(utilisateur);
     }
 
@@ -43,6 +44,10 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
     @Override
     public List<Solution> lireSolution() {
         return repositorySolution.findAll();
+    }
+
+        public Compte trouverCompteParEmail(String email) {
+        return repositoryCompte.findByEmail(email);
     }
 
 }

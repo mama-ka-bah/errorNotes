@@ -14,4 +14,6 @@ public interface ServicesUsers {
     Commentaire creerCommentaire(Commentaire commentaire);
 
   //  Etat creerEtat(Etat etat);
+    Boolean connexion(String email, String password);
+
 }

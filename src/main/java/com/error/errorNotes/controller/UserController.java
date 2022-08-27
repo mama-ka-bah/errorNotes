@@ -4,16 +4,11 @@ package com.error.errorNotes.controller;
 import com.error.errorNotes.model.Commentaire;
 import com.error.errorNotes.model.Probleme;
 import com.error.errorNotes.model.Solution;
-import com.error.errorNotes.model.Utilisateur;
 import com.error.errorNotes.services.ServicesAdmins;
 import com.error.errorNotes.services.ServicesUsers;
-import com.error.errorNotes.services.ServicesVisitors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -24,19 +19,31 @@ public class UserController {
     final private ServicesAdmins servicesAdmins;
     final private ServicesUsers servicesUsers;
 
-    @PostMapping("/createProbleme")
-    public Probleme createProbleme(@RequestBody Probleme probleme){
-        return servicesUsers.creerProbleme(probleme);
+    @PostMapping("/createProbleme/{email}/{password}")
+    public String createProbleme(@RequestBody Probleme probleme, @PathVariable String email, @PathVariable String password){
+        if (servicesUsers.connexion(email, password)){
+            servicesUsers.creerProbleme(probleme);
+            return "Probleme enregistré avec succes";
+        }
+        return "Acces refusé";
     }
 
-    @PostMapping("/createSolution")
-    public Solution createSolution(@RequestBody Solution solution){
-        return servicesUsers.creerSolution(solution);
+    @PostMapping("/createSolution/{email}/{password}")
+    public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password){
+        if(servicesUsers.connexion(email, password)) {
+            servicesUsers.creerSolution(solution);
+            return "Solution enregistré avec succes";
+        }
+        return "Acces refusé";
     }
 
-    @PostMapping("/createCommentaire")
-    public Commentaire createCommentaire(@RequestBody Commentaire commentaire){
-        return servicesUsers.creerCommentaire(commentaire);
+    @PostMapping("/createCommentaire/{email}/{password}")
+    public String createCommentaire(@RequestBody Commentaire commentaire, @PathVariable String email, @PathVariable String password){
+        if(servicesUsers.connexion(email, password)) {
+            servicesUsers.creerCommentaire(commentaire);
+            return "Solution enregistré avec succes";
+        }
+        return "Acces refusé";
     }
 
 }
