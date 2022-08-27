@@ -1,16 +1,13 @@
 package com.error.errorNotes.services;
 
 
-import com.error.errorNotes.model.Commentaire;
-import com.error.errorNotes.model.Probleme;
-import com.error.errorNotes.model.Solution;
+import com.error.errorNotes.model.*;
 import com.error.errorNotes.repository.RepositoryCommentaire;
 import com.error.errorNotes.repository.RepositoryProbleme;
 import com.error.errorNotes.repository.RepositorySolution;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.error.errorNotes.model.Compte;
 import com.error.errorNotes.repository.RepositoryCompte;
 
 
@@ -25,11 +22,20 @@ public class ServicesUserImpl implements ServicesUsers{
 
     @Override
     public Probleme creerProbleme(Probleme probleme) {
+        Etat etat = new Etat();
+        etat.setId(1L);
+        probleme.setEtat(etat);
         return repositoryProbleme.save(probleme);
     }
 
     @Override
-    public Solution creerSolution(Solution solution) {
+    public Solution creerSolution(Solution solution, Probleme prob) {
+        //instaciation du probleme
+        Probleme probleme = new Probleme();
+
+        //definition du probleme conserné de la solution
+        solution.setProbleme(prob);
+
         return repositorySolution.save(solution);
     }
 
@@ -55,6 +61,16 @@ public class ServicesUserImpl implements ServicesUsers{
             System.out.println("ce compte n'existe pas");
             return false;
         }
+    }
+
+    @Override
+    public Probleme trouverProblemeParTitre(String titre) {
+        return repositoryProbleme.findByTitre(titre);
+    }
+
+    @Override
+    public Solution trouverSolutionParIdProbleme(Long problemeId) {
+        return repositorySolution.FIND_SOLUTION_PAR_ID_PROBLEME(problemeId);
     }
 
 }

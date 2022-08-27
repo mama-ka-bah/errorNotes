@@ -28,11 +28,27 @@ public class UserController {
         return "Acces refusé";
     }
 
-    @PostMapping("/createSolution/{email}/{password}")
-    public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password){
+    @PostMapping("/createSolution/{email}/{password}/{titreProbleme}")
+    public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password, @PathVariable String titreProbleme){
+
+        //si email et password de l'user sont correct
         if(servicesUsers.connexion(email, password)) {
-            servicesUsers.creerSolution(solution);
-            return "Solution enregistré avec succes";
+
+           //recupere le probleme sur lequel la solution doit etre  posté
+            Probleme prob = servicesUsers.trouverProblemeParTitre(titreProbleme);
+
+            //verifie si le problème specifier existe et qu'il n'a pas de solution
+            if (prob != null){
+                if (servicesUsers.trouverSolutionParIdProbleme(prob.getId()) == null){
+                    //creation du problème
+                    servicesUsers.creerSolution(solution, prob);
+                    return "Solution enregistré avec succes";
+                }else {
+                    return "Ce probleme a été déjà resolu";
+                }
+            }else {
+                return "Ce problème n'existe pas";
+            }
         }
         return "Acces refusé";
     }

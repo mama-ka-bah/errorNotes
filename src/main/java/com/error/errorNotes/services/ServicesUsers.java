@@ -9,11 +9,15 @@ public interface ServicesUsers {
 
     Probleme creerProbleme(Probleme probleme);
 
-    Solution creerSolution(Solution solution);
+    Solution creerSolution(Solution solution, Probleme prob);
 
     Commentaire creerCommentaire(Commentaire commentaire);
 
   //  Etat creerEtat(Etat etat);
     Boolean connexion(String email, String password);
+
+    Probleme trouverProblemeParTitre(String titre);
+
+    Solution trouverSolutionParIdProbleme(Long problemeId);
 
 }
