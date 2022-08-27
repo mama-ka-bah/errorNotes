@@ -1,15 +1,19 @@
 package com.error.errorNotes.services;
 
-import com.error.errorNotes.model.Compte;
-import com.error.errorNotes.model.Utilisateur;
-import com.error.errorNotes.repository.RepositoryCompte;
-import com.error.errorNotes.repository.RepositoryUtilisateur;
+import com.error.errorNotes.model.*;
+import com.error.errorNotes.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ServicesVisitorsImpl implements ServicesVisitors{
+
+    final RepositoryProbleme repositoryProbleme;
+    final RepositoryCommentaire repositoryCommentaire;
+    final RepositorySolution repositorySolution;
 
    final RepositoryUtilisateur repositoryUtilisateur;
    final RepositoryCompte repositoryCompte;
@@ -24,6 +28,21 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
         compte.setRole("user");
         repositoryCompte.save(compte);
         return repositoryUtilisateur.save(utilisateur);
+    }
+
+    @Override
+    public List<Probleme> lireProbleme() {
+        return repositoryProbleme.findAll();
+    }
+
+    @Override
+    public List<Commentaire> lireCommentaire() {
+        return repositoryCommentaire.findAll();
+    }
+
+    @Override
+    public List<Solution> lireSolution() {
+        return repositorySolution.findAll();
     }
 
 }

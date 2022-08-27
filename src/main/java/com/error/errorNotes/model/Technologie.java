@@ -21,6 +21,7 @@ public class Technologie {
     private String nom;
 
     @ManyToMany
+
     private List<Probleme> problemes = new ArrayList<>();
 
 }

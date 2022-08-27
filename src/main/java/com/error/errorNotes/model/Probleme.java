@@ -1,5 +1,6 @@
 package com.error.errorNotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,13 +24,16 @@ public class Probleme {
     private String descpt;
     private Date date;
 
+
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
 
+
    @ManyToOne
    @JoinColumn(name = "etat_id")
     private Etat etat;
+
 
 
     @ManyToMany
