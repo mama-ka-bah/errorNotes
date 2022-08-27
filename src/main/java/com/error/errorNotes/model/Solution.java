@@ -1,5 +1,6 @@
 package com.error.errorNotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Solution {
 
     private String contenu;
     private Date date;
+
 
     @OneToOne
     @JoinColumn(name = "probleme_id")

@@ -1,5 +1,6 @@
 package com.error.errorNotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Commentaire {
 
     private String contenu;
     private Date date;
+
 
     @ManyToOne
     @JoinColumn(name = "solution_id")

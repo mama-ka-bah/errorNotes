@@ -23,16 +23,31 @@ public class Probleme {
     private String descpt;
     private Date date;
 
+
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
+
 
    @ManyToOne
    @JoinColumn(name = "etat_id")
     private Etat etat;
 
 
-    @ManyToMany
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+//definition de la relation entre les deux tables Jointable pour lier les deux colone dans chaque table
+    @JoinTable(
+            name = "probleme_technologies",
+            joinColumns = @JoinColumn(name = "techno_id"),
+            inverseJoinColumns = @JoinColumn(name = "probleme_id")
+    )
+
     private List<Technologie> technologies = new ArrayList<>();
 
 
