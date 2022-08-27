@@ -6,4 +6,5 @@ import com.error.errorNotes.model.Utilisateur;
 public interface ServicesVisitors {
 
     Utilisateur creerCompteUser(Utilisateur utilisateur, String email, String password);
+    Compte trouverCompteParEmail(String email);
 }
