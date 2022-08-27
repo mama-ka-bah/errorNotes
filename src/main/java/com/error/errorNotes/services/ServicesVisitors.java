@@ -7,6 +7,7 @@ import java.util.List;
 public interface ServicesVisitors {
 
     Utilisateur creerCompteUser(Utilisateur utilisateur, String email, String password);
+<<<<<<< HEAD
 
     List<Probleme> lireProbleme();
 
@@ -14,4 +15,7 @@ public interface ServicesVisitors {
 
     List<Solution> lireSolution();
 
+=======
+    Compte trouverCompteParEmail(String email);
+>>>>>>> authentification
 }

@@ -34,7 +34,23 @@ public class Probleme {
    @JoinColumn(name = "etat_id")
     private Etat etat;
 
+<<<<<<< HEAD
     @ManyToMany
+=======
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+//definition de la relation entre les deux tables Jointable pour lier les deux colone dans chaque table
+    @JoinTable(
+            name = "probleme_technologies",
+            joinColumns = @JoinColumn(name = "techno_id"),
+            inverseJoinColumns = @JoinColumn(name = "probleme_id")
+    )
+>>>>>>> authentification
     private List<Technologie> technologies = new ArrayList<>();
 
 

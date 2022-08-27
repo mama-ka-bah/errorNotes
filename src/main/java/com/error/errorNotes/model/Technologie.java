@@ -20,7 +20,21 @@ public class Technologie {
 
     private String nom;
 
-    @ManyToMany
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+//definition de la relation entre les deux tables Jointable pour lier les deux colone dans chaque table
+    @JoinTable(
+            name = "probleme_technologies",
+            joinColumns = @JoinColumn(name = "probleme_id"),
+            inverseJoinColumns = @JoinColumn(name = "techno_id")
+    )
     private List<Probleme> problemes = new ArrayList<>();
+
 
 }
