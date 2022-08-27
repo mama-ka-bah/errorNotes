@@ -34,8 +34,6 @@ public class Probleme {
    @JoinColumn(name = "etat_id")
     private Etat etat;
 
-
-
     @ManyToMany
     private List<Technologie> technologies = new ArrayList<>();
 
