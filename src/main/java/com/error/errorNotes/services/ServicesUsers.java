@@ -6,7 +6,6 @@ import com.error.errorNotes.model.Probleme;
 import com.error.errorNotes.model.Solution;
 
 public interface ServicesUsers {
-<<<<<<< HEAD
 
     Probleme creerProbleme(Probleme probleme);
 
@@ -15,7 +14,6 @@ public interface ServicesUsers {
     Commentaire creerCommentaire(Commentaire commentaire);
 
   //  Etat creerEtat(Etat etat);
-=======
     Boolean connexion(String email, String password);
->>>>>>> authentification
+
 }

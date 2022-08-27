@@ -1,17 +1,16 @@
 package com.error.errorNotes.services;
 
-<<<<<<< HEAD
+
 import com.error.errorNotes.model.Etat;
 import com.error.errorNotes.model.Technologie;
 import com.error.errorNotes.repository.RepositoryCommentaire;
 import com.error.errorNotes.repository.RepositoryEtat;
 import com.error.errorNotes.repository.RepositoryTechnologie;
-=======
 import com.error.errorNotes.model.Compte;
 import com.error.errorNotes.model.Utilisateur;
 import com.error.errorNotes.repository.RepositoryCompte;
 import com.error.errorNotes.repository.RepositoryUtilisateur;
->>>>>>> authentification
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ServicesAdminsImpl implements ServicesAdmins{
 
-<<<<<<< HEAD
     private final RepositoryEtat repositoryEtat;
     private final RepositoryTechnologie repositoryTechnologie;
     private final RepositoryCommentaire repositoryCommentaire;
@@ -40,7 +38,6 @@ public class ServicesAdminsImpl implements ServicesAdmins{
         return "Commentaire supprimer";
     }
 
-=======
     private final RepositoryUtilisateur repositoryUtilisateur;
     private final RepositoryCompte repositoryCompte;
 
@@ -54,5 +51,5 @@ public class ServicesAdminsImpl implements ServicesAdmins{
         repositoryCompte.save(compte);
         return repositoryUtilisateur.save(utilisateur);
     }
->>>>>>> authentification
+
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/visitors")
+@RequestMapping("/visitor")
 @AllArgsConstructor
 public class VisitorController {
 
@@ -28,23 +28,23 @@ public class VisitorController {
     public String creerCompte(@RequestBody Utilisateur utilisateur, @PathVariable String email, @PathVariable String password){
        if(servicesVisitors.trouverCompteParEmail(email) == null){
            servicesVisitors.creerCompteUser(utilisateur, email, password);
-           return "Votre compte est créée par mot clé";
+           return "Votre compte est créée avec succes";
        }else {
            return "Cet email existe déjà";
        }
     }
 
-    @GetMapping("/readProbleme")
+    @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
         return servicesVisitors.lireProbleme();
     }
 
-    @GetMapping("/readSolution")
+    @GetMapping("/afficherSolution")
     public List<Solution> readSolution(){
         return servicesVisitors.lireSolution();
     }
 
-    @GetMapping("/readCommentaire")
+    @GetMapping("/afficherCommentaire")
     public List<Commentaire> readCommentaire(){
         return servicesVisitors.lireCommentaire();
     }
