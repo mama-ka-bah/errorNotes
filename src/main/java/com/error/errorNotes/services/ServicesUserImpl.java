@@ -62,6 +62,10 @@ public class ServicesUserImpl implements ServicesUsers{
 
     @Override
     public Commentaire creerCommentaire(Commentaire commentaire, Utilisateur user, Solution solution) {
+
+        //attribution de de la date actuelle au commentaire
+        commentaire.setDate(new Date());
+
         //attribution de l'user au commentaire
         commentaire.setUtilisateur(user);
 
