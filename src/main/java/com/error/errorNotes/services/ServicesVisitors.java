@@ -16,6 +16,4 @@ public interface ServicesVisitors {
 
     List<Solution> lireSolution();
 
-    Compte trouverCompteParEmail(String email);
-
 }

@@ -1,6 +1,7 @@
 package com.error.errorNotes.controller;
 
 
+import com.error.errorNotes.model.Compte;
 import com.error.errorNotes.model.Etat;
 import com.error.errorNotes.model.Technologie;
 import com.error.errorNotes.model.Utilisateur;
@@ -23,14 +24,21 @@ public class AdminController {
     final  private ServicesUsers servicesUsers;
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")
-    @PostMapping("/creerCompteAdmin/{email}/{password}/{emailAcree}/{passwordAcree}")
-    public String creerCompteAdmin(@RequestBody Utilisateur utilisateur, @PathVariable  String email, @PathVariable String password, @PathVariable String emailAcree, @PathVariable String passwordAcree) {
-       if (servicesUsers.connexion(email, password) == true){
-           if (servicesVisitors.trouverCompteParEmail(emailAcree) == null){
-               servicesAdmins.creerCompteAdmin(utilisateur, emailAcree, passwordAcree);
+    @PostMapping("/creerCompteAdmin/{email}/{password}")//{emailAcree}/{passwordAcree}
+    public String creerCompteAdmin(@RequestBody Utilisateur utilisateur, @PathVariable  String email, @PathVariable String password) {//, @PathVariable String emailAcree, @PathVariable String passwordAcree
+       Compte compteAcree = servicesUsers.trouverCompteParEmail(utilisateur.getCompte().getEmail());
+        Compte compte = servicesUsers.trouverCompteParEmail(email);
+        //String mailAcree = utilisateur.getCompte().getEmail();
+
+        //servicesUsers.trouverCompteParEmail(email).getRole()
+        System.out.println(compte.getRole());
+        if (servicesUsers.connexion(email, password) == true && compte.getRole().equals("admin")){
+           if (compteAcree == null){
+               servicesAdmins.creerCompteAdmin(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
                return "compte admin créé";
+           }else {
+               return "Ce compte existe déjà";
            }
-           return "Ce compte existe déjà";
        }else {
            return "Acces refusé";
        }
