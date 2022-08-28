@@ -33,4 +33,6 @@ public interface ServicesUsers {
 
    Technologie trouverTechonologieParNom(String nom);
 
+    List<Ressource> enregistrerRessource(List<Ressource> ressourcee);
+
 }

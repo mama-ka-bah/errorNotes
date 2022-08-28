@@ -21,6 +21,7 @@ public class ServicesUserImpl implements ServicesUsers{
     private final RepositoryCompte repositoryCompte;
     private final RepositoryTechnologie repositoryTechnologie;
     private final RepositoryProblemeTechnologie repositoryProblemeTechnologie;
+    private final RepositoryRessource repositoryRessource;
 
     @Override
     public Probleme creerProbleme(Probleme probleme, Utilisateur user) {
@@ -135,6 +136,11 @@ public class ServicesUserImpl implements ServicesUsers{
     @Override
     public Technologie trouverTechonologieParNom(String nom) {
         return repositoryTechnologie.findByNom(nom);
+    }
+
+    @Override
+    public List<Ressource> enregistrerRessource(List<Ressource> ressource) {
+        return repositoryRessource.saveAll(ressource);
     }
 
 }

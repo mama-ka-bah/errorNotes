@@ -102,12 +102,13 @@ public class UserController {
     }
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")
-    @PostMapping("/createSolution/{email}/{password}/{titreProbleme}")
-    public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password, @PathVariable String titreProbleme) {
+    @PostMapping("/createSolution/{email}/{password}/{titreProbleme}/{ressources}")
+    public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password, @PathVariable String titreProbleme, @PathVariable String ressources) {
 
         //recupere le probleme sur lequel la solution doit etre  posté
         Probleme prob = servicesUsers.trouverProblemeParTitre(titreProbleme);
 
+        //on verifie si le problème existe ou pas
         if(prob != null) {
             //recuperation de l'id du problème
             Long idPro = prob.getId();
@@ -131,8 +132,36 @@ public class UserController {
                 //verfie si le probleme specifié a une solution ou pas
                 if (servicesUsers.trouverSolutionParIdProbleme(idPro) == null) {
 
-                    //creation du problème
-                    servicesUsers.creerSolution(solution, prob);
+                    //creation de la solution
+                    Solution solutionCree = servicesUsers.creerSolution(solution, prob);
+
+                    //list permettant de stocker les resource dans l'objectif de les enregister tous en même temps
+                    List<Ressource> ressourceList = new ArrayList<>();
+
+                    //Un tableau qui contenera les ressources par case
+                    String[] tabRessources = ressources.split(":");
+
+
+                    //cette boucle sert à parcours les ressources envoyées pour recuper
+                    //et les ajouter un à un, à  la list ressourcesList à l'aide de l'instance de ressource appélé
+                    //ress
+                    for (String r: tabRessources){
+
+                        //instance de ressource
+                        Ressource ress = new Ressource();
+
+                        //attribue le lien doc actuel à ress actuel
+                        ress.setLienDoc(r);
+
+                        //on atribue la solution à ress actuelle
+                        ress.setSolution(solutionCree);
+
+                        //on stocke ress actuel à ressourceList, la liste à enregistré
+                        ressourceList.add(ress);
+                    }
+
+                    //enregistrement des different ressources
+                    servicesUsers.enregistrerRessource(ressourceList);
 
                     return "Solution enregistré avec succes";
 
