@@ -33,16 +33,19 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
 
     @Override
     public List<Probleme> lireProbleme() {
+
         return repositoryProbleme.findAll();
     }
 
     @Override
     public List<Commentaire> lireCommentaire() {
+
         return repositoryCommentaire.findAll();
     }
 
     @Override
     public List<Solution> lireSolution() {
+
         return repositorySolution.findAll();
     }
 /*

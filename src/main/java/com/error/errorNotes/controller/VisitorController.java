@@ -51,16 +51,21 @@ public class VisitorController {
     @ApiOperation(value = "Just to test the sample test api of My App Service")
     @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
+
         return servicesVisitors.lireProbleme();
     }
 
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
     @GetMapping("/afficherSolution")
     public List<Solution> readSolution(){
+
         return servicesVisitors.lireSolution();
     }
 
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
     @GetMapping("/afficherCommentaire")
     public List<Commentaire> readCommentaire(){
+
         return servicesVisitors.lireCommentaire();
     }
 }
