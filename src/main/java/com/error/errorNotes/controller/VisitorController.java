@@ -32,8 +32,17 @@ public class VisitorController {
     @PostMapping("/creerCompte")//{email}/{password}
     public String creerCompte(@RequestBody Utilisateur utilisateur){
        if(servicesUsers.trouverCompteParEmail(utilisateur.getCompte().getEmail()) == null){
-           servicesVisitors.creerCompteUser(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
-           return "Votre compte est créée avec succes";
+           if(utilisateur.getCompte().getEmail().trim().equals("") || utilisateur.getCompte().getPassword().trim().equals("")){
+               return "Veuillez remplir les champs obligatoire";
+           }else {
+               if (utilisateur.getCompte().getPassword().length() >= 8){
+                   servicesVisitors.creerCompteUser(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
+                   return "Votre compte est créée avec succes";
+               }else{
+                   return "Le mot de passe doit être superieur à 8 caracteurs";
+               }
+
+           }
        }else {
            return "Cet email existe déjà";
        }

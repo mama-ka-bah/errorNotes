@@ -3,6 +3,8 @@ package com.error.errorNotes.services;
 import com.error.errorNotes.model.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ServicesUsers {
 
@@ -26,5 +28,9 @@ public interface ServicesUsers {
    Probleme trouverProblemeParId(Long id);
 
    Utilisateur trouverUtilisateurParCompte(Compte compte);
+
+    List<Probleme_technologies> enregistrerProblemesTechnologies(List<Probleme_technologies> protechno);
+
+   Technologie trouverTechonologieParNom(String nom);
 
 }

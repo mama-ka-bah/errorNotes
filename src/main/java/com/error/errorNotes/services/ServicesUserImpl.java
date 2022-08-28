@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -18,6 +19,8 @@ public class ServicesUserImpl implements ServicesUsers{
     private final RepositorySolution repositorySolution;
     private final RepositoryUtilisateur repositoryUtilisateur;
     private final RepositoryCompte repositoryCompte;
+    private final RepositoryTechnologie repositoryTechnologie;
+    private final RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
     @Override
     public Probleme creerProbleme(Probleme probleme, Utilisateur user) {
@@ -81,14 +84,18 @@ public class ServicesUserImpl implements ServicesUsers{
         return repositoryEtat.save(etat);
     }*/
 
+    //fonction utilisé pour verfier si l'user a un compte pas et si son password est correct
     @Override
     public Boolean connexion(String email, String password) {
+
+        //on se sert de l'email de l'user pour recuperer son compte
         Compte compte = repositoryCompte.findByEmail(email);
 
+        //on verfie si son compte a été retrouvé ou pas, et si son password est correct également
         if(compte != null && compte.getPassword().equals(password)){
             System.out.println("Connexion éffectuée avec succes");
             return true;
-        }else {
+        }else {//lorsque son compte n'a pas été retrouvé
             System.out.println("ce compte n'existe pas");
             return false;
         }
@@ -103,13 +110,6 @@ public class ServicesUserImpl implements ServicesUsers{
     public Solution trouverSolutionParIdProbleme(Long problemeId) {
         return repositorySolution.FIND_SOLUTION_PAR_ID_PROBLEME(problemeId);
     }
-/*
-    @Override
-    public Utilisateur trouverUtilisateurParCompteId(Long id_compte) {
-
-        return repositoryUtilisateur.findById(id_compte).get();
-    }
-*/
 
     @Override
     public Compte trouverCompteParEmail(String email) {
@@ -125,6 +125,16 @@ public class ServicesUserImpl implements ServicesUsers{
     @Override
     public Utilisateur trouverUtilisateurParCompte(Compte compte) {
         return repositoryUtilisateur.findByCompte(compte);
+    }
+
+    @Override
+    public List<Probleme_technologies> enregistrerProblemesTechnologies(List<Probleme_technologies> protechno) {
+        return repositoryProblemeTechnologie.saveAll(protechno);
+    }
+
+    @Override
+    public Technologie trouverTechonologieParNom(String nom) {
+        return repositoryTechnologie.findByNom(nom);
     }
 
 }
