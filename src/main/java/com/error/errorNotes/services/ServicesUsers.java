@@ -1,19 +1,16 @@
 package com.error.errorNotes.services;
 
-import com.error.errorNotes.model.Commentaire;
-import com.error.errorNotes.model.Etat;
-import com.error.errorNotes.model.Probleme;
-import com.error.errorNotes.model.Solution;
+import com.error.errorNotes.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface ServicesUsers {
 
-    Probleme creerProbleme(Probleme probleme);
+    Probleme creerProbleme(Probleme probleme, Utilisateur user);
 
     Solution creerSolution(Solution solution, Probleme prob);
 
-    Commentaire creerCommentaire(Commentaire commentaire);
+    Commentaire creerCommentaire(Commentaire commentaire, Utilisateur user, Solution solution);
 
   //  Etat creerEtat(Etat etat);
     Boolean connexion(String email, String password);
@@ -21,5 +18,13 @@ public interface ServicesUsers {
     Probleme trouverProblemeParTitre(String titre);
 
     Solution trouverSolutionParIdProbleme(Long problemeId);
+
+    //Utilisateur trouverUtilisateurParCompteId(Long id);
+
+   Compte trouverCompteParEmail(String email);
+
+   Probleme trouverProblemeParId(Long id);
+
+   Utilisateur trouverUtilisateurParCompte(Compte compte);
 
 }

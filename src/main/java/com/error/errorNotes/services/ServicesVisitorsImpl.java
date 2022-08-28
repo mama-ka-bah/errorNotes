@@ -45,9 +45,12 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
     public List<Solution> lireSolution() {
         return repositorySolution.findAll();
     }
-
+/*
         public Compte trouverCompteParEmail(String email) {
+
         return repositoryCompte.findByEmail(email);
     }
+
+ */
 
 }

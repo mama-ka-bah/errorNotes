@@ -2,13 +2,11 @@ package com.error.errorNotes.services;
 
 
 import com.error.errorNotes.model.*;
-import com.error.errorNotes.repository.RepositoryCommentaire;
-import com.error.errorNotes.repository.RepositoryProbleme;
-import com.error.errorNotes.repository.RepositorySolution;
+import com.error.errorNotes.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.error.errorNotes.repository.RepositoryCompte;
+import java.util.Date;
 
 
 @Service
@@ -18,13 +16,27 @@ public class ServicesUserImpl implements ServicesUsers{
     private final RepositoryProbleme repositoryProbleme;
     private final RepositoryCommentaire repositoryCommentaire;
     private final RepositorySolution repositorySolution;
-  //  private final RepositoryEtat repositoryEtat;
+    private final RepositoryUtilisateur repositoryUtilisateur;
+    private final RepositoryCompte repositoryCompte;
 
     @Override
-    public Probleme creerProbleme(Probleme probleme) {
+    public Probleme creerProbleme(Probleme probleme, Utilisateur user) {
+        //definition de l'etat
         Etat etat = new Etat();
+
+        //on met l'etat à létat initial
         etat.setId(1L);
+
+        //on attribue cet etat au problème
         probleme.setEtat(etat);
+
+        //On attribue user recuperer en parametre au problème
+        probleme.setUtilisateur(user);
+
+        //on attribue la date actuelle au problème
+        probleme.setDate(new Date());
+
+        //On enregistre le problème
         return repositoryProbleme.save(probleme);
     }
 
@@ -33,6 +45,15 @@ public class ServicesUserImpl implements ServicesUsers{
         //instaciation du probleme
         Probleme probleme = new Probleme();
 
+        //Instaciation de l'etat
+        Etat etat = new Etat();
+
+        //Attribution de l'id 2(fermé) à l'etat
+        etat.setId(2L);
+
+        //On met le probleme à l'état fermé
+        prob.setEtat(etat);
+
         //definition du probleme conserné de la solution
         solution.setProbleme(prob);
 
@@ -40,7 +61,14 @@ public class ServicesUserImpl implements ServicesUsers{
     }
 
     @Override
-    public Commentaire creerCommentaire(Commentaire commentaire) {
+    public Commentaire creerCommentaire(Commentaire commentaire, Utilisateur user, Solution solution) {
+        //attribution de l'user au commentaire
+        commentaire.setUtilisateur(user);
+
+        //attribution de la solution au probleme
+        commentaire.setSolution(solution);
+
+        //enregistrement du commentaire
         return repositoryCommentaire.save(commentaire);
     }
 
@@ -48,7 +76,6 @@ public class ServicesUserImpl implements ServicesUsers{
     public Etat creerEtat(Etat etat) {
         return repositoryEtat.save(etat);
     }*/
-    private final RepositoryCompte repositoryCompte;
 
     @Override
     public Boolean connexion(String email, String password) {
@@ -71,6 +98,29 @@ public class ServicesUserImpl implements ServicesUsers{
     @Override
     public Solution trouverSolutionParIdProbleme(Long problemeId) {
         return repositorySolution.FIND_SOLUTION_PAR_ID_PROBLEME(problemeId);
+    }
+/*
+    @Override
+    public Utilisateur trouverUtilisateurParCompteId(Long id_compte) {
+
+        return repositoryUtilisateur.findById(id_compte).get();
+    }
+*/
+
+    @Override
+    public Compte trouverCompteParEmail(String email) {
+
+        return repositoryCompte.findByEmail(email);
+    }
+
+    @Override
+    public Probleme trouverProblemeParId(Long id) {
+        return repositoryProbleme.findById(id).get();
+    }
+
+    @Override
+    public Utilisateur trouverUtilisateurParCompte(Compte compte) {
+        return repositoryUtilisateur.findByCompte(compte);
     }
 
 }

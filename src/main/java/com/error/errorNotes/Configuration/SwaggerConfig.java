@@ -1,10 +1,9 @@
 package com.error.errorNotes.Configuration;
 
 import io.swagger.annotations.Api;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,8 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @Controller
-@RequestMapping("/")
-
+@Configuration
 public class SwaggerConfig {
     @Bean
     public Docket api() {

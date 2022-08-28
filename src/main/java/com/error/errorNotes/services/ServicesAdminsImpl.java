@@ -21,14 +21,18 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     private final RepositoryEtat repositoryEtat;
     private final RepositoryTechnologie repositoryTechnologie;
     private final RepositoryCommentaire repositoryCommentaire;
+    private final RepositoryUtilisateur repositoryUtilisateur;
+    private final RepositoryCompte repositoryCompte;
 
     @Override
     public Etat creerEtat(Etat etat) {
+
         return repositoryEtat.save(etat);
     }
 
     @Override
     public Technologie creerTechnologie(Technologie technologie) {
+
         return repositoryTechnologie.save(technologie);
     }
 
@@ -37,9 +41,6 @@ public class ServicesAdminsImpl implements ServicesAdmins{
         repositoryCommentaire.deleteById(id);
         return "Commentaire supprimer";
     }
-
-    private final RepositoryUtilisateur repositoryUtilisateur;
-    private final RepositoryCompte repositoryCompte;
 
     @Override
     public Utilisateur creerCompteAdmin(Utilisateur utilisateur, String email, String password) {
