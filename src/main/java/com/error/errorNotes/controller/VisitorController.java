@@ -1,9 +1,6 @@
 package com.error.errorNotes.controller;
 
-import com.error.errorNotes.model.Commentaire;
-import com.error.errorNotes.model.Probleme;
-import com.error.errorNotes.model.Solution;
-import com.error.errorNotes.model.Utilisateur;
+import com.error.errorNotes.model.*;
 import com.error.errorNotes.services.ServicesUsers;
 import com.error.errorNotes.services.ServicesVisitors;
 import io.swagger.annotations.Api;
@@ -11,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,16 +49,28 @@ public class VisitorController {
     @ApiOperation(value = "Just to test the sample test api of My App Service")
     @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
+
         return servicesVisitors.lireProbleme();
     }
 
     @GetMapping("/afficherSolution")
     public List<Solution> readSolution(){
+
         return servicesVisitors.lireSolution();
     }
 
     @GetMapping("/afficherCommentaire")
     public List<Commentaire> readCommentaire(){
+
         return servicesVisitors.lireCommentaire();
+    }
+
+    @GetMapping("/rechercherProblemeParMotsCles/{motsCles}")
+    public List<ArrayList<Integer>> rechercherProblemeParMotsCles(@PathVariable String motsCles){
+
+        int occurence = 0;
+        List<ArrayList<Integer>> listAretourner = new ArrayList<>(occurence);
+
+        return listAretourner;
     }
 }

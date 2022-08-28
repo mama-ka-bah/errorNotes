@@ -58,6 +58,9 @@ public class ServicesUserImpl implements ServicesUsers{
         //On met le probleme à l'état fermé
         prob.setEtat(etat);
 
+        //on attribue la date actuelle à la solution
+       solution.setDate(new Date());
+
         //definition du probleme conserné de la solution
         solution.setProbleme(prob);
 
