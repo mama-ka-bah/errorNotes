@@ -21,14 +21,18 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     private final RepositoryEtat repositoryEtat;
     private final RepositoryTechnologie repositoryTechnologie;
     private final RepositoryCommentaire repositoryCommentaire;
+    private final RepositoryUtilisateur repositoryUtilisateur;
+    private final RepositoryCompte repositoryCompte;
 
     @Override
     public Etat creerEtat(Etat etat) {
+
         return repositoryEtat.save(etat);
     }
 
     @Override
     public Technologie creerTechnologie(Technologie technologie) {
+
         return repositoryTechnologie.save(technologie);
     }
 
@@ -38,17 +42,28 @@ public class ServicesAdminsImpl implements ServicesAdmins{
         return "Commentaire supprimer";
     }
 
-    private final RepositoryUtilisateur repositoryUtilisateur;
-    private final RepositoryCompte repositoryCompte;
-
     @Override
     public Utilisateur creerCompteAdmin(Utilisateur utilisateur, String email, String password) {
+
+        //on instancie la classe compte
         Compte compte = new Compte();
+
+        //on attribue au compte instacier l'email donné
         compte.setEmail(email);
+
+        //on attribue également au compte instacier
         compte.setPassword(password);
+
+        //on lui attribue le role admin
         compte.setRole("admin");
+
+        //On associe le compte manupilé ci-dessus au l'utilisateur
         utilisateur.setCompte(compte);
+
+        //on enregistre le compte de l'utilisateur
         repositoryCompte.save(compte);
+
+        //on enregistre l'utilisateur lui-meme
         return repositoryUtilisateur.save(utilisateur);
     }
 

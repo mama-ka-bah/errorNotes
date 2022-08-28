@@ -1,6 +1,5 @@
 package com.error.errorNotes.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,7 @@ public class Utilisateur {
     private String prenom;
     private String adresse;
 
-
-    @JsonIgnore
+    //(cascade = CascadeType.ALL)
     @OneToOne
     private Compte compte;
 }
