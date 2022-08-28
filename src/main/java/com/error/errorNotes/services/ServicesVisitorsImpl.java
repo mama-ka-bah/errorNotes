@@ -33,11 +33,13 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
 
     @Override
     public List<Probleme> lireProbleme() {
+
         return repositoryProbleme.findAll();
     }
 
     @Override
     public List<Commentaire> lireCommentaire() {
+
         return repositoryCommentaire.findAll();
     }
 
@@ -45,9 +47,12 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
     public List<Solution> lireSolution() {
         return repositorySolution.findAll();
     }
-
+/*
         public Compte trouverCompteParEmail(String email) {
+
         return repositoryCompte.findByEmail(email);
     }
+
+ */
 
 }
