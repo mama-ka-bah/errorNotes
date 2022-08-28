@@ -2,6 +2,7 @@ package com.error.errorNotes.controller;
 
 
 import com.error.errorNotes.model.*;
+import com.error.errorNotes.repository.RepositoryProblemeTechnologie;
 import com.error.errorNotes.services.ServicesAdmins;
 import com.error.errorNotes.services.ServicesUsers;
 import io.swagger.annotations.Api;
@@ -9,6 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -19,22 +23,76 @@ public class UserController {
 
     @Autowired
     final private ServicesUsers servicesUsers;
+    //final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")
-    @PostMapping("/createProbleme/{email}/{password}")
-    public String createProbleme(@RequestBody Probleme probleme, @PathVariable String email, @PathVariable String password) {
+    @PostMapping("/createProbleme/{email}/{password}/{technos}")
+    public String createProbleme(@RequestBody Probleme probleme, @PathVariable String email, @PathVariable String password, @PathVariable String technos) {
 
+        //authentification
         if (servicesUsers.connexion(email, password)) {
+
+            //verifie si le titre mis à l'url a un problème correspondant
             if(servicesUsers.trouverProblemeParTitre(probleme.getTitre()) == null) {
-                //recupere l'id du compte par email
+
+                //recupere le compte par email
                 Compte userCompte = servicesUsers.trouverCompteParEmail(email);
 
                 System.out.println(userCompte);
 
+                //recupere l'user correspondant au compte ci-dessus
                 Utilisateur user = servicesUsers.trouverUtilisateurParCompte(userCompte);
-                //if ()
-                servicesUsers.creerProbleme(probleme, user);
-                return "Probleme enregistré avec succes";
+
+                //Un tableau qui contenera une technologie par case
+                String[] technosTab = technos.split(":");
+
+                System.out.println("Les technologies mises" + technosTab);
+
+                //Initialisation de la liste qui contenera la liste des technologies à enregistrer
+                List<Probleme_technologies> listProTechno = new ArrayList<>();
+
+                //ce boolean est utilisé pour verifier si tous les technologies precisées par l'user existe ou pas dans la base
+                boolean bool = true;
+
+                //cette boucle sert à parcours les noms des technologies pour recuper
+                // les technologies correspondantes afin de les ajouter à la list à de type problemes_technologie
+                //qui sera en fin enregistré
+
+                for (String t: technosTab){
+
+                    //Instaciation de la classe Probleme_technologies, utilisé pour stocker aléatoirement
+                    //les problemes_technologies recuperer
+                    Probleme_technologies proTechno = new Probleme_technologies();
+
+                    //recuperation aléatoire des technologies
+                    Technologie techno = servicesUsers.trouverTechonologieParNom(t);
+
+                    //On met la valeur de la variable bool à false lorsqu'une tecnologie sera introuvable dans la base
+                    if(techno == null){
+                        bool = false;
+                    }
+
+                    //On attribue la technologie actuelle à proTechno
+                    proTechno.setTechno(techno);
+
+                    //On attribue le proble à proTechno
+                    proTechno.setProbleme(probleme);
+
+                    //ajout de problemes_technologie formé à la list à retourner
+                    listProTechno.add(proTechno);
+
+                }
+                if (bool == true){//on verifie si toutes les technologies ont été retrouvé dans la base
+
+                    //on crée le probleme en lui attribuant l'user actuel
+                    servicesUsers.creerProbleme(probleme, user);
+
+                    //repositoryProblemeTechnologie.saveAll(listProTechno);
+                    servicesUsers.enregistrerProblemesTechnologies(listProTechno);
+                    return "Probleme enregistré avec succes";
+                }else {
+                    return  "Une des technologie n'existe pas";
+                }
             }else {
                 return "Ce problème existe déjà veuillez lire la solution";
             }
