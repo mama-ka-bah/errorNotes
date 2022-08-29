@@ -76,7 +76,7 @@ public class UserController {
                     proTechno.setTechno(techno);
 
                     //On attribue le proble à proTechno
-                    proTechno.setProbleme(probleme);
+                    proTechno.setProblemet(probleme);
 
                     //ajout de problemes_technologie formé à la list à retourner
                     listProTechno.add(proTechno);

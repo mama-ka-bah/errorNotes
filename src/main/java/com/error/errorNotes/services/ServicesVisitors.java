@@ -16,4 +16,8 @@ public interface ServicesVisitors {
 
     List<Solution> lireSolution();
 
+    List<Probleme_technologies> afficherProblemeTechnologies();
+
+    Probleme_technologies trouverProbleme_technologiesParProbleme(Probleme probleme);
+
 }

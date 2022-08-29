@@ -17,6 +17,8 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
 
    final RepositoryUtilisateur repositoryUtilisateur;
    final RepositoryCompte repositoryCompte;
+
+   final RepositoryProblemeTechnologie repositoryProblemeTechnologie;
    // Compte compte = new Compte();
 
     //Implementation de la methode permettant de créer un compte utilisateur
@@ -46,6 +48,17 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
     @Override
     public List<Solution> lireSolution() {
         return repositorySolution.findAll();
+    }
+
+    @Override
+    public List<Probleme_technologies> afficherProblemeTechnologies() {
+
+        return repositoryProblemeTechnologie.findAll();
+    }
+
+    @Override
+    public Probleme_technologies trouverProbleme_technologiesParProbleme(Probleme probleme) {
+        return repositoryProblemeTechnologie.findByProblemet(probleme);
     }
 /*
         public Compte trouverCompteParEmail(String email) {
