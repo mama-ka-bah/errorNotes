@@ -20,4 +20,6 @@ public interface ServicesVisitors {
 
     Probleme_technologies trouverProbleme_technologiesParProbleme(Probleme probleme);
 
+    Object trouverProbleme_technologieParTitreProbleme(String titre);
+
 }

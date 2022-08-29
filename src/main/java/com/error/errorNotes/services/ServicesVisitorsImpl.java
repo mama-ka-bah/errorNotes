@@ -60,6 +60,11 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
     public Probleme_technologies trouverProbleme_technologiesParProbleme(Probleme probleme) {
         return repositoryProblemeTechnologie.findByProblemet(probleme);
     }
+
+    @Override
+    public Object trouverProbleme_technologieParTitreProbleme(String titre) {
+        return repositoryProblemeTechnologie.FIND_PROBLEME_TECHNO_ETAT_PAR_TITRE(titre);
+    }
 /*
         public Compte trouverCompteParEmail(String email) {
 

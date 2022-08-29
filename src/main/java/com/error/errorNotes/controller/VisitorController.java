@@ -1,5 +1,6 @@
 package com.error.errorNotes.controller;
 
+import com.error.errorNotes.authers.Recherche;
 import com.error.errorNotes.model.*;
 import com.error.errorNotes.repository.RepositoryProbleme;
 import com.error.errorNotes.repository.RepositoryProblemeTechnologie;
@@ -82,70 +83,38 @@ public class VisitorController {
     @GetMapping("/rechercherProblemeParMotsCles/{motsCles}")
     public List<Object> rechercherProblemeParMotsCles(@PathVariable String motsCles){
 
+        //recuperation de tous les problemes_technologies de la table probleme_technologies
         List<Probleme_technologies> tousProblemesTechnologies = servicesVisitors.afficherProblemeTechnologies();
 
-        //int taille = tousProblemesTechnologies.size();
-        //List<ArrayList<Probleme_technologies>> listAretourner = new ArrayList<>(taille);
 
-        List<Probleme_technologies> listAretourner = new ArrayList<>();
-
-        /*
-        for(int i=0; i < taille; i++) {
-            listAretourner.add(new ArrayList());
-        }
-         */
-
-        //String[][] titre_occurence = new String[taille][1];
-
+        //decoupage des mots d'expression recherché en tableau de mots
         String[] tabMots = motsCles.split(" ");
-        Map<String, Integer> map = new HashMap<>();
 
-        for(Probleme_technologies pt: tousProblemesTechnologies){
-            int occu = 0;
-            for (String mc: tabMots){
-                if(pt.getProblemet().getTitre().contains(mc)){
-                    occu += StringUtils.countMatches(pt.getProblemet().getTitre(), mc);
-                }
-                if (pt.getProblemet().getDescpt().contains(mc)){
-                    occu += StringUtils.countMatches(pt.getProblemet().getDescpt(), mc);
-                }
-                if (pt.getTechno().getNom().contains(mc)){
-                    occu += StringUtils.countMatches(pt.getTechno().getNom(), mc);
-                }
-            }
+       Recherche recherche = new Recherche();
 
-            if(occu > 0)
-            map.put(pt.getProblemet().getTitre(), occu);
-
-        }
-
-
-      List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(map.entrySet());
-        //List list = new LinkedList(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-                    @Override
-                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                        return o1.getValue().compareTo(o2.getValue());
-                    }
-                });
+        //on declare une d'object à retourner
         List<Object> listObjectAretourner = new ArrayList<>();
-    for (Map.Entry<String, Integer> item: list){
 
-        String titre = item.getKey();
 
-        //Probleme pro = servicesUsers.trouverProblemeParTitre(titre);
-        Object pro = repositoryProblemeTechnologie.FIND_PROBLEME_TECHNO_ETAT_PAR_TITRE(titre);
+        List<Map.Entry<String, Integer>> list = recherche.rechercherProblemeParMotsCles(motsCles, tousProblemesTechnologies, tabMots);
 
-       //Probleme_technologies proTchno = servicesVisitors.trouverProbleme_technologiesParProbleme(pro);
 
-        listObjectAretourner.add(pro);
+        //on parcours la liste trier pour recupererr les problemes correspondant
+        for (Map.Entry<String, Integer> item: list){
 
-       //listAretourner.add(proTchno);
+            //on recupere le premier titre
+            String titre = item.getKey();
 
-        System.out.println(titre);
-    }
+            //recuperation du probleme
+            Object pro = servicesVisitors.trouverProbleme_technologieParTitreProbleme(titre);
+
+            //on ajoute ce probleme dans la liste à retourner
+            listObjectAretourner.add(pro);
+
+
+            System.out.println(titre);
+        }
 /*
-        System.out.println(map.toString());
         // Récupérer les valeurs et les clés
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             String key = entry.getKey();
@@ -154,9 +123,10 @@ public class VisitorController {
         }
 
  */
-       Collections.reverse(listObjectAretourner);
-       //Collections.reverse(listAretourner);
+        //on renverse la liste à retourner
+        Collections.reverse(listObjectAretourner);
 
+        //retourne la liste des probleme
         return listObjectAretourner;
     }
 }
