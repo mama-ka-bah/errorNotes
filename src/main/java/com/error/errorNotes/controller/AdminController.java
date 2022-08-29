@@ -32,7 +32,7 @@ public class AdminController {
 
         //servicesUsers.trouverCompteParEmail(email).getRole()
         System.out.println(compte.getRole());
-        if (servicesUsers.connexion(email, password) == true && compte.getRole().equals("admin")){
+        if (servicesUsers.connexion(email, password) == true && compte.getRole().equals("admin")){//|| compte.getEmail().equals("kmahamadou10@gmail.com")){
            if (compteAcree == null){
                servicesAdmins.creerCompteAdmin(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
                return "compte admin créé";
@@ -45,15 +45,25 @@ public class AdminController {
     }
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")
-    @PostMapping("/createEtat")
-    public Etat createEtat(@RequestBody Etat etat){
-        return servicesAdmins.creerEtat(etat);
+    @PostMapping("/createEtat/{email}/{password}")
+    public String createEtat(@RequestBody Etat etat, @PathVariable  String email, @PathVariable String password){
+        Compte compte = servicesUsers.trouverCompteParEmail(email);
+        if (servicesUsers.connexion(email, password) == true && compte.getRole().equals("admin")){
+            servicesAdmins.creerEtat(etat, email, password);
+            return "Etat enregistré avec succes";
+            }
+        return "Acces refusé";
     }
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")
-    @PostMapping("/createTechnologie")
-    public Technologie createTechnologie(@RequestBody Technologie technologie){
-        return servicesAdmins.creerTechnologie(technologie);
+    @PostMapping("/createTechnologie/{email}/{password}")
+    public String createTechnologie(@RequestBody Technologie technologie, @PathVariable  String email, @PathVariable String password){
+        Compte compte = servicesUsers.trouverCompteParEmail(email);
+        if (servicesUsers.connexion(email, password) == true && compte.getRole().equals("admin")){
+            servicesAdmins.creerTechnologie(technologie, email, password);
+            return "Technologie enregistré avec succes";
+        }
+        return "Acces refusé";
     }
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")

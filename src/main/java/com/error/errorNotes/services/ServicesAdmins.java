@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ServicesAdmins{
 
-    Etat creerEtat(Etat etat);
+    Etat creerEtat(Etat etat, String email, String password);
 
-    Technologie creerTechnologie(Technologie technologie);
+    Technologie creerTechnologie(Technologie technologie, String email, String password);
 
     String supprimer(long id);
 

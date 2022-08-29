@@ -16,4 +16,6 @@ public interface ServicesVisitors {
 
     List<Solution> lireSolution();
 
+    List<Technologie> lireTechnologie();
+
 }
