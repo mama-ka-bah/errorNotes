@@ -25,13 +25,13 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     private final RepositoryCompte repositoryCompte;
 
     @Override
-    public Etat creerEtat(Etat etat) {
+    public Etat creerEtat(Etat etat, String email, String password) {
 
         return repositoryEtat.save(etat);
     }
 
     @Override
-    public Technologie creerTechnologie(Technologie technologie) {
+    public Technologie creerTechnologie(Technologie technologie, String email, String password) {
 
         return repositoryTechnologie.save(technologie);
     }

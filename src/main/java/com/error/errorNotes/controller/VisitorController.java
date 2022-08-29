@@ -1,9 +1,6 @@
 package com.error.errorNotes.controller;
 
-import com.error.errorNotes.model.Commentaire;
-import com.error.errorNotes.model.Probleme;
-import com.error.errorNotes.model.Solution;
-import com.error.errorNotes.model.Utilisateur;
+import com.error.errorNotes.model.*;
 import com.error.errorNotes.services.ServicesUsers;
 import com.error.errorNotes.services.ServicesVisitors;
 import io.swagger.annotations.Api;
@@ -68,4 +65,12 @@ public class VisitorController {
 
         return servicesVisitors.lireCommentaire();
     }
+
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
+   @GetMapping("/afficherTechnologie")
+    public List<Technologie> readTechnologie(){
+
+        return servicesVisitors.lireTechnologie();
+    }
 }
+
