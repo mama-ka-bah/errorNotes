@@ -25,13 +25,13 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     private final RepositoryCompte repositoryCompte;
 
     @Override
-    public Etat creerEtat(Etat etat, String email, String password) {
+    public Etat creerEtat(Etat etat, String email) {
 
         return repositoryEtat.save(etat);
     }
 
     @Override
-    public Technologie creerTechnologie(Technologie technologie, String email, String password) {
+    public Technologie creerTechnologie(Technologie technologie, String email) {
 
         return repositoryTechnologie.save(technologie);
     }
@@ -65,6 +65,11 @@ public class ServicesAdminsImpl implements ServicesAdmins{
 
         //on enregistre l'utilisateur lui-meme
         return repositoryUtilisateur.save(utilisateur);
+    }
+
+    @Override
+    public Etat TrouverEtatparNom(String nom) {
+        return repositoryEtat.findByNom(nom);
     }
 
 }

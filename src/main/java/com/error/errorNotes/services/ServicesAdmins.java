@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ServicesAdmins{
 
-    Etat creerEtat(Etat etat, String email, String password);
+    Etat creerEtat(Etat etat, String email);
 
-    Technologie creerTechnologie(Technologie technologie, String email, String password);
+    Technologie creerTechnologie(Technologie technologie, String email);
 
     String supprimer(long id);
 
     Utilisateur creerCompteAdmin(Utilisateur utilisateur, String email, String password);
+
+    Etat TrouverEtatparNom(String nom);
 
 }

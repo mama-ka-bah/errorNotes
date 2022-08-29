@@ -43,11 +43,7 @@
 			<optional>true</optional>
 		</dependency>
 
-<<<<<<< HEAD
-=======
-
 		<!-- debut swagger-->
->>>>>>> 50022b1ee0272bedf76dba9284abefb1cabffdc0
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -59,11 +55,8 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-<<<<<<< HEAD
-=======
-		<!-- Fin swagger-->
 
->>>>>>> 50022b1ee0272bedf76dba9284abefb1cabffdc0
+		<!-- Fin swagger-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
