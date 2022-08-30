@@ -33,7 +33,7 @@ public class UserController {
         if (servicesUsers.connexion(email, password)) {
 
             //verifie si le titre mis à l'url a un problème correspondant
-            if(servicesUsers.trouverProblemeParTitre(probleme.getTitre()) == null) {
+            if (servicesUsers.trouverProblemeParTitre(probleme.getTitre()) == null) {
 
                 //recupere le compte par email
                 Compte userCompte = servicesUsers.trouverCompteParEmail(email);
@@ -58,7 +58,7 @@ public class UserController {
                 // les technologies correspondantes afin de les ajouter à la list à de type problemes_technologie
                 //qui sera en fin enregistré
 
-                for (String t: technosTab){
+                for (String t : technosTab) {
 
                     //Instaciation de la classe Probleme_technologies, utilisé pour stocker aléatoirement
                     //les problemes_technologies recuperer
@@ -68,7 +68,7 @@ public class UserController {
                     Technologie techno = servicesUsers.trouverTechonologieParNom(t);
 
                     //On met la valeur de la variable bool à false lorsqu'une tecnologie sera introuvable dans la base
-                    if(techno == null){
+                    if (techno == null) {
                         bool = false;
                     }
 
@@ -82,7 +82,7 @@ public class UserController {
                     listProTechno.add(proTechno);
 
                 }
-                if (bool == true){//on verifie si toutes les technologies ont été retrouvé dans la base
+                if (bool == true) {//on verifie si toutes les technologies ont été retrouvé dans la base
 
                     //on crée le probleme en lui attribuant l'user actuel
                     servicesUsers.creerProbleme(probleme, user);
@@ -90,13 +90,13 @@ public class UserController {
                     //repositoryProblemeTechnologie.saveAll(listProTechno);
                     servicesUsers.enregistrerProblemesTechnologies(listProTechno);
                     return "Probleme enregistré avec succes";
-                }else {
-                    return  "Une des technologie n'existe pas";
+                } else {
+                    return "Une des technologie n'existe pas";
                 }
-            }else {
+            } else {
                 return "Ce problème existe déjà veuillez lire la solution";
             }
-        }else {
+        } else {
             return "Acces refusé";
         }
     }
@@ -109,7 +109,7 @@ public class UserController {
         Probleme prob = servicesUsers.trouverProblemeParTitre(titreProbleme);
 
         //on verifie si le problème existe ou pas
-        if(prob != null) {
+        if (prob != null) {
             //recuperation de l'id du problème
             Long idPro = prob.getId();
 
@@ -145,7 +145,7 @@ public class UserController {
                     //cette boucle sert à parcours les ressources envoyées pour recuper
                     //et les ajouter un à un, à  la list ressourcesList à l'aide de l'instance de ressource appélé
                     //ress
-                    for (String r: tabRessources){
+                    for (String r : tabRessources) {
 
                         //instance de ressource
                         Ressource ress = new Ressource();
@@ -172,47 +172,100 @@ public class UserController {
             } else {//authentification echoué ou problème n' pas été posté par l'utilisateur
                 return "Acces refusé";
             }
-        }else {//Si le problème n'existe pas
+        } else {//Si le problème n'existe pas
             return "Ce problème n'existe pas";
         }
 
+    }
+
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @PostMapping("/createCommentaire/{email}/{password}/{titreProbleme}")
+    public String createCommentaire(@RequestBody Commentaire commentaire, @PathVariable String
+            email, @PathVariable String password, @PathVariable String titreProbleme) {
+
+        //Authentification
+        if (servicesUsers.connexion(email, password)) {
+
+            //recupere le probleme correspondant au titre mis à l'url
+            Probleme probleme = servicesUsers.trouverProblemeParTitre(titreProbleme);
+
+            //verifie si le probleme existe ou pas
+            if (probleme != null) {
+
+                //recupere l'id du probleme
+                Long idProbleme = probleme.getId();
+
+                //recupere la solution correspondant au probleme
+                Solution solution = servicesUsers.trouverSolutionParIdProbleme(idProbleme);
+
+                //recuperation de l'user par son email
+                Compte compteUser = servicesUsers.trouverCompteParEmail(email);
+
+                //recuperation de l'utilisateur par son compte
+                Utilisateur user = servicesUsers.trouverUtilisateurParCompte(compteUser);
+
+                //c reation du commentaire
+                servicesUsers.creerCommentaire(commentaire, user, solution);
+                return "Commentaire enregistré avec succes";
+            } else {//si on trouve pas le probleme
+                return "Ce probleme n'existe pas";
+            }
+        } else {//au cas ou l'authentification echouera
+            return "Acces refusé";
         }
 
-        @ApiOperation(value = "Just to test the sample test api of My App Service")
-        @PostMapping("/createCommentaire/{email}/{password}/{titreProbleme}")
-        public String createCommentaire (@RequestBody Commentaire commentaire, @PathVariable String
-        email, @PathVariable String password, @PathVariable String titreProbleme){
+    }
 
-            //Authentification
-            if (servicesUsers.connexion(email, password)) {
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @PutMapping("/updateSolution/{email}/{password}/{titreProbleme}")
+    public String updateSolution(@RequestBody Solution solution, @PathVariable String
+            email, @PathVariable String password, @PathVariable String titreProbleme) {
 
-                //recupere le probleme correspondant au titre mis à l'url
-                Probleme probleme = servicesUsers.trouverProblemeParTitre(titreProbleme);
+        //si l'email et password de l'user sont correct
+        if (servicesUsers.connexion(email, password)) {
 
-                //verifie si le probleme existe ou pas
-                if (probleme != null){
+            Probleme p = servicesUsers.trouverProblemeParTitre(titreProbleme);
 
-                    //recupere l'id du probleme
-                    Long idProbleme = probleme.getId();
+            if(p != null) {
 
-                    //recupere la solution correspondant au probleme
-                    Solution solution = servicesUsers.trouverSolutionParIdProbleme(idProbleme);
+                //recuperation de l'id du problème
+                Long idPro = p.getId();
 
-                    //recuperation de l'user par son email
-                    Compte compteUser = servicesUsers.trouverCompteParEmail(email);
+                Solution s = servicesUsers.trouverSolutionParIdProbleme(idPro);
 
-                    //recuperation de l'utilisateur par son compte
-                    Utilisateur user = servicesUsers.trouverUtilisateurParCompte(compteUser);
+                if (s != null){
+                    Long idSolution = s.getId();
 
-                    //c reation du commentaire
-                    servicesUsers.creerCommentaire(commentaire, user, solution);
-                    return "Commentaire enregistré avec succes";
-                }else {//si on trouve pas le probleme
-                    return "Ce probleme n'existe pas";
+                    //recupere l'id de l'utilisateur qui a posté le problème
+                    Long id_userProbl = servicesUsers.trouverProblemeParId(idPro).getUtilisateur().getId();
+
+                    //Recuperation du compte de l'utilisateur qui veut resoudre le problème par son email
+                    Compte cpte_user = servicesUsers.trouverCompteParEmail(email);
+
+                    //recuperation de l'id de l'user qui veut poster une solution
+                    Long id_userSolution = servicesUsers.trouverUtilisateurParCompte(cpte_user).getId();
+
+                    if(id_userProbl.equals(id_userSolution) || cpte_user.getRole().equals("admin")){
+
+                        if(p.getEtat().getNom().equals("Fermé")){
+                            return "Ce problème a été fermé";
+                        }else {
+                            servicesUsers.modifierSolution(idSolution, solution);
+                            return "Solution modifier avec succes";
+                        }
+                    }else {
+                        return "Ce problème n'a été posté par toi";
+                    }
+
+                }else {
+                    return "Cette solution n'existe";
                 }
-            }else{//au cas ou l'authentification echouera
-                return "Acces refusé";
+            }else {
+                return "Ce probleme n'existe pas";
             }
 
+        } else {
+            return "Acces interdit";
+        }
     }
 }

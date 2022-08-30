@@ -35,4 +35,6 @@ public interface ServicesUsers {
 
     List<Ressource> enregistrerRessource(List<Ressource> ressourcee);
 
+    Solution modifierSolution(Long id, Solution solution);
+
 }

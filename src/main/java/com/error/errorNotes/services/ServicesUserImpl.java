@@ -143,4 +143,17 @@ public class ServicesUserImpl implements ServicesUsers{
         return repositoryRessource.saveAll(ressource);
     }
 
+    @Override
+    public Solution modifierSolution(Long id, Solution solution) {
+
+        return repositorySolution.findById(id)
+                .map(s -> {
+
+                    if(s.getContenu() != null)
+                    s.setContenu(solution.getContenu());
+
+                    return repositorySolution.save(s);
+                }).orElseThrow(() -> new RuntimeException("Solution non trouvé !"));
+    }
+
 }
