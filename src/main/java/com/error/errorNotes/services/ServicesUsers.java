@@ -35,4 +35,10 @@ public interface ServicesUsers {
 
     List<Ressource> enregistrerRessource(List<Ressource> ressourcee);
 
+    Probleme modifierProbleme(Probleme probleme, Long id);
+
+    Commentaire modifierCommentaire(Commentaire commentaire, Long id);
+
+    Commentaire trouverCommentaireParId(Long id);
+
 }

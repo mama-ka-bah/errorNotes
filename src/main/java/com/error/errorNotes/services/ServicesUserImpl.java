@@ -146,4 +146,37 @@ public class ServicesUserImpl implements ServicesUsers{
         return repositoryRessource.saveAll(ressource);
     }
 
+    @Override
+    public Probleme modifierProbleme(Probleme probleme, Long id) {
+        return repositoryProbleme.findById(id)
+                .map(r-> {
+                    if(probleme.getTitre() != null)
+                    r.setTitre(probleme.getTitre());
+                    if(probleme.getDescpt() != null)
+                    r.setDescpt(probleme.getDescpt());
+                    if (probleme.getTechnologies() != null)
+                    r.setTechnologies(probleme.getTechnologies());
+                    if (probleme.getEtat() != null)
+                    r.setEtat(probleme.getEtat());
+
+                    return repositoryProbleme.save(r);
+                }).orElseThrow(() -> new RuntimeException("probleme non trouvé !"));
+    }
+
+    @Override
+    public Commentaire modifierCommentaire(Commentaire commentaire, Long id) {
+
+        return repositoryCommentaire.findById(id)
+                .map(c-> {
+                    if(commentaire.getContenu() != null)
+                        c.setContenu(commentaire.getContenu());
+                    return repositoryCommentaire.save(c);
+                }).orElseThrow(() -> new RuntimeException("Commentaire non trouvé !"));
+    }
+
+    @Override
+    public Commentaire trouverCommentaireParId(Long id) {
+        return repositoryCommentaire.findById(id).get();
+    }
+
 }

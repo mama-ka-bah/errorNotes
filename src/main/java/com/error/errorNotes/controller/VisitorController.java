@@ -9,10 +9,8 @@ import com.error.errorNotes.services.ServicesVisitors;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 import java.util.*;
@@ -38,11 +36,20 @@ public class VisitorController {
     @ApiOperation(value = "Just to test the sample test api of My App Service")
     @PostMapping("/creerCompte")//{email}/{password}
     public String creerCompte(@RequestBody Utilisateur utilisateur){
+
+        //
        if(servicesUsers.trouverCompteParEmail(utilisateur.getCompte().getEmail()) == null){
+
+           //
            if(utilisateur.getCompte().getEmail().trim().equals("") || utilisateur.getCompte().getPassword().trim().equals("")){
+
                return "Veuillez remplir les champs obligatoire";
            }else {
+
+               //
                if (utilisateur.getCompte().getPassword().length() >= 8){
+
+                   //
                    servicesVisitors.creerCompteUser(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
                    return "Votre compte est créée avec succes";
                }else{
@@ -65,11 +72,13 @@ public class VisitorController {
     @GetMapping("/afficherSolution")
     public List<Solution> readSolution(){
 
+
         return servicesVisitors.lireSolution();
     }
 
     @GetMapping("/afficherCommentaire")
     public List<Commentaire> readCommentaire(){
+
 
         return servicesVisitors.lireCommentaire();
     }
@@ -96,7 +105,7 @@ public class VisitorController {
         List<Object> listObjectAretourner = new ArrayList<>();
 
 
-        List<Map.Entry<String, Integer>> list = recherche.rechercherProblemeParMotsCles(motsCles, tousProblemesTechnologies, tabMots);
+        List<Map.Entry<String, Integer>> list = recherche.rechercherProblemeParMotsCles(tousProblemesTechnologies, tabMots);
 
 
         //on parcours la liste trier pour recupererr les problemes correspondant
@@ -129,4 +138,18 @@ public class VisitorController {
         //retourne la liste des probleme
         return listObjectAretourner;
     }
+
+    @GetMapping("/afficherUnProbleme/{titre}")
+    public Probleme afficherUnProblemeDonnée(@PathVariable String titre){
+
+        return servicesUsers.trouverProblemeParTitre(titre);
+    }
+
 }
+
+/*
+afficher un probleme donnée avec sa solution et les commentaires sur la solution
+ajouter la solution au resultat de la recherche
+faire la recherce sur les tables solution et commentaire en meme que sur les tables probleme et techono probleme
+afficher les commentaire d'une solution
+ */

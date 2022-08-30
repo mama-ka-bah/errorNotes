@@ -8,7 +8,7 @@ import java.util.*;
 
 @NoArgsConstructor
 public class Recherche {
-    public  List<Map.Entry<String, Integer>> rechercherProblemeParMotsCles(String motsCles, List<Probleme_technologies> tousProblemesTechnologies, String[] tabMots){
+    public  List<Map.Entry<String, Integer>> rechercherProblemeParMotsCles(List<Probleme_technologies> tousProblemesTechnologies, String[] tabMots){
 
 
        //Declaration d'un hasmap pour stocker les titre des problemes rechercherchés
@@ -50,10 +50,10 @@ public class Recherche {
 
 
        //declaration de l'hasmap pour stocker l'hasmap trié
-       List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(map.entrySet());
+       List<Map.Entry<String, Integer>> listOrdonnee = new LinkedList<Map.Entry<String, Integer>>(map.entrySet());
 
        //cette fonction est utilisée pour trier l'hasmap(map) des titre et occurence
-       Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+       Collections.sort(listOrdonnee, new Comparator<Map.Entry<String, Integer>>() {
 
            //on declare o1 et o2 come hasmap
            @Override
@@ -64,6 +64,6 @@ public class Recherche {
            }
        });
        
-       return list;
+       return listOrdonnee;
     }
 }
