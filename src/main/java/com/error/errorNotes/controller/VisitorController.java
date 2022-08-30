@@ -1,13 +1,10 @@
 package com.error.errorNotes.controller;
 
-<<<<<<< HEAD
+
 import com.error.errorNotes.authers.Recherche;
 import com.error.errorNotes.model.*;
 import com.error.errorNotes.repository.RepositoryProbleme;
 import com.error.errorNotes.repository.RepositoryProblemeTechnologie;
-=======
-import com.error.errorNotes.model.*;
->>>>>>> 39142c011fe2f063dae436cf640a608a9f580c39
 import com.error.errorNotes.services.ServicesUsers;
 import com.error.errorNotes.services.ServicesVisitors;
 import io.swagger.annotations.Api;
@@ -77,10 +74,6 @@ public class VisitorController {
     @GetMapping("/afficherSolution")
     public List<Solution> readSolution(){
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 39142c011fe2f063dae436cf640a608a9f580c39
         return servicesVisitors.lireSolution();
     }
 
@@ -88,7 +81,6 @@ public class VisitorController {
     @GetMapping("/afficherCommentaire")
     public List<Commentaire> readCommentaire(){
 
-<<<<<<< HEAD
 
         return servicesVisitors.lireCommentaire();
     }
@@ -150,22 +142,16 @@ public class VisitorController {
     }
 
     @GetMapping("/afficherUnProbleme/{titre}")
-    public Probleme afficherUnProblemeDonnée(@PathVariable String titre){
+    public Probleme afficherUnProblemeDonnee(@PathVariable String titre){
 
-        return servicesUsers.trouverProblemeParTitre(titre);
+        //recupere le probleme correspondant au titre
+        Probleme probleme = servicesUsers.trouverProblemeParTitre(titre);
+
+        servicesUsers.trouverSolutionParIdProbleme(probleme.getId());
+
+        return probleme;
     }
 
-}
-
-/*
-afficher un probleme donnée avec sa solution et les commentaires sur la solution
-ajouter la solution au resultat de la recherche
-faire la recherce sur les tables solution et commentaire en meme que sur les tables probleme et techono probleme
-afficher les commentaire d'une solution
- */
-=======
-        return servicesVisitors.lireCommentaire();
-    }
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")
    @GetMapping("/afficherTechnologie")
@@ -175,4 +161,10 @@ afficher les commentaire d'une solution
     }
 }
 
->>>>>>> 39142c011fe2f063dae436cf640a608a9f580c39
+
+    /*
+    afficher un probleme donnée avec sa solution et les commentaires sur la solution
+    ajouter la solution au resultat de la recherche
+    faire la recherce sur les tables solution et commentaire en meme que sur les tables probleme et techono probleme
+    afficher les commentaire d'une solution
+     */
