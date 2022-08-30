@@ -205,7 +205,7 @@ public class UserController {
                     //recuperation de l'utilisateur par son compte
                     Utilisateur user = servicesUsers.trouverUtilisateurParCompte(compteUser);
 
-                    //creation du commentaire
+                    //c reation du commentaire
                     servicesUsers.creerCommentaire(commentaire, user, solution);
                     return "Commentaire enregistré avec succes";
                 }else {//si on trouve pas le probleme

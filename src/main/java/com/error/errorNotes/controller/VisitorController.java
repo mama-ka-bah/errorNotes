@@ -1,9 +1,13 @@
 package com.error.errorNotes.controller;
 
+<<<<<<< HEAD
 import com.error.errorNotes.authers.Recherche;
 import com.error.errorNotes.model.*;
 import com.error.errorNotes.repository.RepositoryProbleme;
 import com.error.errorNotes.repository.RepositoryProblemeTechnologie;
+=======
+import com.error.errorNotes.model.*;
+>>>>>>> 39142c011fe2f063dae436cf640a608a9f580c39
 import com.error.errorNotes.services.ServicesUsers;
 import com.error.errorNotes.services.ServicesVisitors;
 import io.swagger.annotations.Api;
@@ -69,16 +73,22 @@ public class VisitorController {
         return servicesVisitors.lireProbleme();
     }
 
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
     @GetMapping("/afficherSolution")
     public List<Solution> readSolution(){
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 39142c011fe2f063dae436cf640a608a9f580c39
         return servicesVisitors.lireSolution();
     }
 
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
     @GetMapping("/afficherCommentaire")
     public List<Commentaire> readCommentaire(){
 
+<<<<<<< HEAD
 
         return servicesVisitors.lireCommentaire();
     }
@@ -153,3 +163,16 @@ ajouter la solution au resultat de la recherche
 faire la recherce sur les tables solution et commentaire en meme que sur les tables probleme et techono probleme
 afficher les commentaire d'une solution
  */
+=======
+        return servicesVisitors.lireCommentaire();
+    }
+
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
+   @GetMapping("/afficherTechnologie")
+    public List<Technologie> readTechnologie(){
+
+        return servicesVisitors.lireTechnologie();
+    }
+}
+
+>>>>>>> 39142c011fe2f063dae436cf640a608a9f580c39

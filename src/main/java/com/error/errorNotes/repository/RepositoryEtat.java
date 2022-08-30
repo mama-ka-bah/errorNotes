@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RepositoryEtat extends JpaRepository<Etat, Long> {
 
+    Etat findByNom(String nom);
 }

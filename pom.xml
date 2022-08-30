@@ -43,6 +43,7 @@
 			<optional>true</optional>
 		</dependency>
 
+<<<<<<< HEAD
 
 		<!-- dependance pour occurrence debut -->
 		<dependency>
@@ -53,6 +54,8 @@
 		<!-- dependance pour occurrence fin -->
 
 
+=======
+>>>>>>> 39142c011fe2f063dae436cf640a608a9f580c39
 		<!-- debut swagger-->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -65,8 +68,8 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		<!-- Fin swagger-->
 
+		<!-- Fin swagger-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
