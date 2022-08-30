@@ -116,8 +116,17 @@ public class VisitorController {
             //on recupere le premier titre
             String titre = item.getKey();
 
-            //recuperation du probleme
-            Object pro = servicesVisitors.trouverProbleme_technologieParTitreProbleme(titre);
+            Object pro = new Object();
+
+            Long idPro = servicesUsers.trouverProblemeParTitre(titre).getId();
+            if (servicesUsers.trouverSolutionParIdProbleme(idPro) == null){
+                //recuperation du probleme
+               pro = servicesVisitors.trouverProbleme_technologieParTitreProbleme(titre);
+            }else {
+                pro = servicesVisitors.trouverProbleme_technologieParTitreProblemeSolution(titre);
+            }
+
+
 
             //on ajoute ce probleme dans la liste à retourner
             listObjectAretourner.add(pro);
