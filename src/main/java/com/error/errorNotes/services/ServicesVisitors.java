@@ -16,6 +16,15 @@ public interface ServicesVisitors {
 
     List<Solution> lireSolution();
 
+
+    List<Probleme_technologies> afficherProblemeTechnologies();
+
+    Probleme_technologies trouverProbleme_technologiesParProbleme(Probleme probleme);
+
+    Object trouverProbleme_technologieParTitreProbleme(String titre);
+
+    Object trouverProbleme_technologieParTitreProblemeSolution(String titre);
+
     List<Technologie> lireTechnologie();
 
 }

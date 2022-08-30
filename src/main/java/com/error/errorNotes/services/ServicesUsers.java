@@ -37,4 +37,10 @@ public interface ServicesUsers {
 
     Solution modifierSolution(Long id, Solution solution);
 
+    Probleme modifierProbleme(Probleme probleme, Long id);
+
+    Commentaire modifierCommentaire(Commentaire commentaire, Long id);
+
+    Commentaire trouverCommentaireParId(Long id);
+
 }

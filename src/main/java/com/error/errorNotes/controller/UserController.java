@@ -2,8 +2,6 @@ package com.error.errorNotes.controller;
 
 
 import com.error.errorNotes.model.*;
-import com.error.errorNotes.repository.RepositoryProblemeTechnologie;
-import com.error.errorNotes.services.ServicesAdmins;
 import com.error.errorNotes.services.ServicesUsers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +23,7 @@ public class UserController {
     final private ServicesUsers servicesUsers;
     //final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
+    //creation du probleme
     @ApiOperation(value = "Just to test the sample test api of My App Service")
     @PostMapping("/createProbleme/{email}/{password}/{technos}")
     public String createProbleme(@RequestBody Probleme probleme, @PathVariable String email, @PathVariable String password, @PathVariable String technos) {
@@ -76,7 +75,7 @@ public class UserController {
                     proTechno.setTechno(techno);
 
                     //On attribue le proble à proTechno
-                    proTechno.setProbleme(probleme);
+                    proTechno.setProblemet(probleme);
 
                     //ajout de problemes_technologie formé à la list à retourner
                     listProTechno.add(proTechno);
@@ -101,6 +100,7 @@ public class UserController {
         }
     }
 
+    //creation de la solution
     @ApiOperation(value = "Just to test the sample test api of My App Service")
     @PostMapping("/createSolution/{email}/{password}/{titreProbleme}/{ressources}")
     public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password, @PathVariable String titreProbleme, @PathVariable String ressources) {
@@ -268,4 +268,99 @@ public class UserController {
             return "Acces interdit";
         }
     }
+
+    //modification du probleme
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @PutMapping("/modifierProbleme/{email}/{password}/{titre}")
+    public String modifierProbleme(@RequestBody Probleme probleme,@PathVariable String email, @PathVariable String password ,@PathVariable String titre){
+
+
+        //verifier l'email et le mot de passe
+        if(servicesUsers.connexion(email, password)) {
+
+            //recupere le probleme à modifier par son titre
+            Probleme problemeAmodifier = servicesUsers.trouverProblemeParTitre(titre);
+
+            //recuperation de l'user qui veut modifier par son email
+            Compte compteUser = servicesUsers.trouverCompteParEmail(email);
+
+            //verifie si le problème existe ou pas
+            if (problemeAmodifier != null){
+
+                //L'id de la personne qui a posté le problème
+                Long idUserPoster = problemeAmodifier.getUtilisateur().getId();
+
+                //l'id de l'user qui veut modifier le probleme
+                Long idUser = servicesUsers.trouverUtilisateurParCompte(compteUser).getId();
+
+                System.out.println(idUser + " " + idUserPoster);
+
+                //verifie si l'user posteur et l'user modificateur sont égaux ou si l'user est un admin
+                if(idUser.equals(idUserPoster) || compteUser.getRole().equals("admin")){
+
+                    //verifie si l'etat du probleme, un problème fermé ne peut être modifier
+                    if(problemeAmodifier.getEtat().getNom().equals("Fermé")){
+                        return "Ce problème a été fermé";
+                    }else {//lorsque l'etat du probleme est different de fermé
+
+                        //on modifie le problème
+                        servicesUsers.modifierProbleme(probleme, problemeAmodifier.getId());
+                        return "Modification reussi";
+                    }
+                }else {//lorsque les deux id verifier sont different
+                    return "Ce probleme n'a pas été posté par toi";
+                }
+            }else{//lorsque le problemeAmodier est vide
+                return "Ce probleme n'existe pas";
+            }
+
+        }else{//authentification échoué
+            return "Acces refusé";
+        }
+    }
+
+    //modification du commentaire
+    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @PutMapping("/modifierCommentaire/{email}/{password}/{id}")
+    public String mofifierCommentaire(@RequestBody Commentaire commentaire, @PathVariable String email, @PathVariable String password, @PathVariable Long id){
+
+        if (servicesUsers.connexion(email, password)){
+
+            //le commentaire à modifier
+            Commentaire commentaireAmodif = servicesUsers.trouverCommentaireParId(id);
+
+            //verifie si le commentaire que l'user veut modier exite ou pas
+            if (commentaireAmodif != null){
+
+                //l'identifiant du commentaire à modifier
+                Long idCommentaire = commentaireAmodif.getId();
+
+                //Compte de l'utilisateur qui veut modifier le probleme
+                Compte compteCommentaireModif = servicesUsers.trouverCompteParEmail(email);
+
+                //liditifiant de l'user qui veut faire la modifiacation
+                Long id_user_commentaire_modif = servicesUsers.trouverUtilisateurParCompte(compteCommentaireModif).getId();
+
+                //l'identifiant de l'utilisateur qui poster le commentaire
+                Long id_user_commentaire_poster = commentaireAmodif.getUtilisateur().getId();
+
+                //verifie si l'id de celui qui a posté est égale à l'id celui qui veut commenter la solution
+                if (id_user_commentaire_poster.equals(id_user_commentaire_modif) || compteCommentaireModif.getRole().equals("admin")){
+
+                    //Modification du commentaire
+                    servicesUsers.modifierCommentaire(commentaire, idCommentaire);
+
+                    return "Commentaire modifier avec succes";
+                }else {//lorsque les deux id verifier sont differnt
+                    return "Ce commentaire n'a pas été posté par toi";
+                }
+            }else {//lorsque le demandé n'existe pas
+                return "Cette commentaire n'existe pas";
+            }
+        }else {//authentification échoué
+            return "Accès refusé";
+        }
+
+    }
+
 }

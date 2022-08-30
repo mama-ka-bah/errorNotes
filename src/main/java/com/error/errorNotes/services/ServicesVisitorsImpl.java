@@ -17,6 +17,9 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
 
    final RepositoryUtilisateur repositoryUtilisateur;
    final RepositoryCompte repositoryCompte;
+
+   final RepositoryProblemeTechnologie repositoryProblemeTechnologie;
+
    final RepositoryTechnologie repositoryTechnologie;
    // Compte compte = new Compte();
 
@@ -51,10 +54,32 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
     }
 
     @Override
+
+    public List<Probleme_technologies> afficherProblemeTechnologies() {
+
+        return repositoryProblemeTechnologie.findAll();
+    }
+
+    @Override
+    public Probleme_technologies trouverProbleme_technologiesParProbleme(Probleme probleme) {
+        return repositoryProblemeTechnologie.findByProblemet(probleme);
+    }
+
+    @Override
+    public Object trouverProbleme_technologieParTitreProbleme(String titre) {
+        return repositoryProblemeTechnologie.FIND_PROBLEME_TECHNO_ETAT_PAR_TITRE(titre);
+    }
+
+    @Override
+    public Object trouverProbleme_technologieParTitreProblemeSolution(String titre) {
+        return repositoryProblemeTechnologie.FIND_PROBLEME_TECHNO_ETAT_PAR_TITRE_SOLUTION(titre);
+    }
+
     public List<Technologie> lireTechnologie() {
 
         return repositoryTechnologie.findAll();
     }
+
 /*
         public Compte trouverCompteParEmail(String email) {
 

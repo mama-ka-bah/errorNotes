@@ -13,7 +13,7 @@ public class Probleme_technologies {
 
     @ManyToOne
     @JoinColumn(name = "probleme_id")
-    private Probleme probleme;
+    private Probleme problemet;
 
     @ManyToOne
     @JoinColumn(name = "techno_id")

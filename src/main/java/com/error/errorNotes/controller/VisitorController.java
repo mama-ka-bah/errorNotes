@@ -1,6 +1,10 @@
 package com.error.errorNotes.controller;
 
+
+import com.error.errorNotes.authers.Recherche;
 import com.error.errorNotes.model.*;
+import com.error.errorNotes.repository.RepositoryProbleme;
+import com.error.errorNotes.repository.RepositoryProblemeTechnologie;
 import com.error.errorNotes.services.ServicesUsers;
 import com.error.errorNotes.services.ServicesVisitors;
 import io.swagger.annotations.Api;
@@ -9,6 +13,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import java.util.*;
 
 
 /*
@@ -24,15 +30,27 @@ public class VisitorController {
     final private ServicesVisitors servicesVisitors;
     final private ServicesUsers servicesUsers;
 
+    final private RepositoryProbleme repositoryProbleme;
+    final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
+
     //methode permettant de creer un compte utilisateur
     @ApiOperation(value = "Just to test the sample test api of My App Service")
     @PostMapping("/creerCompte")//{email}/{password}
     public String creerCompte(@RequestBody Utilisateur utilisateur){
+
+        //
        if(servicesUsers.trouverCompteParEmail(utilisateur.getCompte().getEmail()) == null){
+
+           //
            if(utilisateur.getCompte().getEmail().trim().equals("") || utilisateur.getCompte().getPassword().trim().equals("")){
+
                return "Veuillez remplir les champs obligatoire";
            }else {
+
+               //
                if (utilisateur.getCompte().getPassword().length() >= 8){
+
+                   //
                    servicesVisitors.creerCompteUser(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
                    return "Votre compte est créée avec succes";
                }else{
@@ -63,8 +81,86 @@ public class VisitorController {
     @GetMapping("/afficherCommentaire")
     public List<Commentaire> readCommentaire(){
 
+
         return servicesVisitors.lireCommentaire();
     }
+
+    @GetMapping("/afficherProTchno")
+    public List<Probleme_technologies> afficherProblemeTechnologies(){
+
+        return servicesVisitors.afficherProblemeTechnologies();
+    }
+
+    @GetMapping("/rechercherProblemeParMotsCles/{motsCles}")
+    public List<Object> rechercherProblemeParMotsCles(@PathVariable String motsCles){
+
+        //recuperation de tous les problemes_technologies de la table probleme_technologies
+        List<Probleme_technologies> tousProblemesTechnologies = servicesVisitors.afficherProblemeTechnologies();
+
+
+        //decoupage des mots d'expression recherché en tableau de mots
+        String[] tabMots = motsCles.split(" ");
+
+       Recherche recherche = new Recherche();
+
+        //on declare une d'object à retourner
+        List<Object> listObjectAretourner = new ArrayList<>();
+
+
+        List<Map.Entry<String, Integer>> list = recherche.rechercherProblemeParMotsCles(tousProblemesTechnologies, tabMots);
+
+
+        //on parcours la liste trier pour recupererr les problemes correspondant
+        for (Map.Entry<String, Integer> item: list){
+
+            //on recupere le premier titre
+            String titre = item.getKey();
+
+            Object pro = new Object();
+
+            Long idPro = servicesUsers.trouverProblemeParTitre(titre).getId();
+            if (servicesUsers.trouverSolutionParIdProbleme(idPro) == null){
+                //recuperation du probleme
+               pro = servicesVisitors.trouverProbleme_technologieParTitreProbleme(titre);
+            }else {
+                pro = servicesVisitors.trouverProbleme_technologieParTitreProblemeSolution(titre);
+            }
+
+
+
+            //on ajoute ce probleme dans la liste à retourner
+            listObjectAretourner.add(pro);
+
+
+            System.out.println(titre);
+        }
+/*
+        // Récupérer les valeurs et les clés
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.println("Clé: " + key + ", Valeur: " + value);
+        }
+
+ */
+        //on renverse la liste à retourner
+        Collections.reverse(listObjectAretourner);
+
+        //retourne la liste des probleme
+        return listObjectAretourner;
+    }
+
+    @GetMapping("/afficherUnProbleme/{titre}")
+    public Probleme afficherUnProblemeDonnee(@PathVariable String titre){
+
+        //recupere le probleme correspondant au titre
+        Probleme probleme = servicesUsers.trouverProblemeParTitre(titre);
+
+        servicesUsers.trouverSolutionParIdProbleme(probleme.getId());
+
+        return probleme;
+    }
+
 
     @ApiOperation(value = "Just to test the sample test api of My App Service")
    @GetMapping("/afficherTechnologie")
@@ -74,3 +170,10 @@ public class VisitorController {
     }
 }
 
+
+    /*
+    afficher un probleme donnée avec sa solution et les commentaires sur la solution
+    ajouter la solution au resultat de la recherche
+    faire la recherce sur les tables solution et commentaire en meme que sur les tables probleme et techono probleme
+    afficher les commentaire d'une solution
+     */

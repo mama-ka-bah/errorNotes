@@ -4,6 +4,7 @@ package com.error.errorNotes.services;
 import com.error.errorNotes.model.*;
 import com.error.errorNotes.repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,15 +13,22 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ServicesUserImpl implements ServicesUsers{
+public class ServicesUserImpl implements ServicesUsers {
 
     private final RepositoryProbleme repositoryProbleme;
+
     private final RepositoryCommentaire repositoryCommentaire;
+
     private final RepositorySolution repositorySolution;
+
     private final RepositoryUtilisateur repositoryUtilisateur;
+
     private final RepositoryCompte repositoryCompte;
+
     private final RepositoryTechnologie repositoryTechnologie;
+
     private final RepositoryProblemeTechnologie repositoryProblemeTechnologie;
+
     private final RepositoryRessource repositoryRessource;
 
     @Override
@@ -58,6 +66,9 @@ public class ServicesUserImpl implements ServicesUsers{
         //On met le probleme à l'état fermé
         prob.setEtat(etat);
 
+        //on attribue la date actuelle à la solution
+        solution.setDate(new Date());
+
         //definition du probleme conserné de la solution
         solution.setProbleme(prob);
 
@@ -93,10 +104,10 @@ public class ServicesUserImpl implements ServicesUsers{
         Compte compte = repositoryCompte.findByEmail(email);
 
         //on verfie si son compte a été retrouvé ou pas, et si son password est correct également
-        if(compte != null && compte.getPassword().equals(password)){
+        if (compte != null && compte.getPassword().equals(password)) {
             System.out.println("Connexion éffectuée avec succes");
             return true;
-        }else {//lorsque son compte n'a pas été retrouvé
+        } else {//lorsque son compte n'a pas été retrouvé
             System.out.println("ce compte n'existe pas");
             return false;
         }
@@ -144,16 +155,49 @@ public class ServicesUserImpl implements ServicesUsers{
     }
 
     @Override
+
     public Solution modifierSolution(Long id, Solution solution) {
 
         return repositorySolution.findById(id)
                 .map(s -> {
 
-                    if(s.getContenu() != null)
-                    s.setContenu(solution.getContenu());
+                    if (s.getContenu() != null)
+                        s.setContenu(solution.getContenu());
 
                     return repositorySolution.save(s);
                 }).orElseThrow(() -> new RuntimeException("Solution non trouvé !"));
     }
+        @Override
+        public Probleme modifierProbleme(Probleme probleme, Long id){
+            return repositoryProbleme.findById(id)
+                    .map(r -> {
+                        if (probleme.getTitre() != null)
+                            r.setTitre(probleme.getTitre());
+                        if (probleme.getDescpt() != null)
+                            r.setDescpt(probleme.getDescpt());
+                        if (probleme.getTechnologies() != null)
+                            r.setTechnologies(probleme.getTechnologies());
+                        if (probleme.getEtat() != null)
+                            r.setEtat(probleme.getEtat());
+
+                        return repositoryProbleme.save(r);
+                    }).orElseThrow(() -> new RuntimeException("probleme non trouvé !"));
+        }
+
+        @Override
+        public Commentaire modifierCommentaire(Commentaire commentaire, Long id){
+
+            return repositoryCommentaire.findById(id)
+                    .map(c -> {
+                        if (commentaire.getContenu() != null)
+                            c.setContenu(commentaire.getContenu());
+                        return repositoryCommentaire.save(c);
+                    }).orElseThrow(() -> new RuntimeException("Commentaire non trouvé !"));
+        }
+
+        @Override
+        public Commentaire trouverCommentaireParId(Long id){
+            return repositoryCommentaire.findById(id).get();
+        }
 
 }
