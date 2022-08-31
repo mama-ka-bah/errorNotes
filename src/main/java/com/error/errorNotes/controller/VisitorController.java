@@ -63,34 +63,36 @@ public class VisitorController {
        }
     }
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Permet d'afficher tous les problemes")
     @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
 
         return servicesVisitors.lireProbleme();
     }
+    /*
+        @ApiOperation(value = "Just to test the sample test api of My App Service")
+        @GetMapping("/afficherSolution")
+        public List<Solution> readSolution(){
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
-    @GetMapping("/afficherSolution")
-    public List<Solution> readSolution(){
+            return servicesVisitors.lireSolution();
+        }
 
-        return servicesVisitors.lireSolution();
-    }
-
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
-    @GetMapping("/afficherCommentaire")
-    public List<Commentaire> readCommentaire(){
+        @ApiOperation(value = "Just to test the sample test api of My App Service")
+        @GetMapping("/afficherCommentaire")
+        public List<Commentaire> readCommentaire(){
 
 
-        return servicesVisitors.lireCommentaire();
-    }
-
+            return servicesVisitors.lireCommentaire();
+        }
+    */
+    @ApiOperation(value = "Permet d'afficher les problemes et leur technologie")
     @GetMapping("/afficherProTchno")
     public List<Probleme_technologies> afficherProblemeTechnologies(){
 
         return servicesVisitors.afficherProblemeTechnologies();
     }
 
+    @ApiOperation(value = "Methodes permettant de rechercher dans la base des mots clés")
     @GetMapping("/rechercherProblemeParMotsCles/{motsCles}")
     public List<Object> rechercherProblemeParMotsCles(@PathVariable String motsCles){
 
@@ -153,6 +155,7 @@ public class VisitorController {
         return listObjectAretourner;
     }
 
+    @ApiOperation(value = "Affiche un probleme resolu avec sa solution et un probleme non tout sa solution")
     @GetMapping("/afficherUnProbleme/{titre}")
     public List<Object> afficherUnProblemeDonnee(@PathVariable String titre){
 
@@ -176,7 +179,7 @@ public class VisitorController {
     }
 
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Permet d'afficher toutes les technologies")
    @GetMapping("/afficherTechnologie")
     public List<Technologie> readTechnologie(){
 
