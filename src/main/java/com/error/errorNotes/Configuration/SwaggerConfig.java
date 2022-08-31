@@ -27,8 +27,8 @@ public class SwaggerConfig {
     @Bean
     public ApiInfo apiInfo() {
         final ApiInfoBuilder builder = new ApiInfoBuilder();
-        builder.title("My Application API through Swagger UI").version("1.0").license("(C) Copyright Test")
-                .description("List of all the APIs of My Application App through Swagger UI");
+        builder.title("Mon API ErrorNote Swagger UI").version("1.0").license("(A_K) ADIAWIAKOYE et KEITA Test")
+                .description("Liste de toutes les Cas d'utilisation de ErrorNote App via Swagger UI");
         return builder.build();
     }
 }

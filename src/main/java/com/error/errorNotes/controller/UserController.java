@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
-@Api(value = "hello", description = "Sample hello world application")
+@Api(value = "hello", description = "Les cas d'utilisations pour l'utilisateur")
 public class UserController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class UserController {
     //final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
     //creation du probleme
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de créer un problème")
     @PostMapping("/createProbleme/{email}/{password}/{technos}")
     public String createProbleme(@RequestBody Probleme probleme, @PathVariable String email, @PathVariable String password, @PathVariable String technos) {
 
@@ -101,7 +101,7 @@ public class UserController {
     }
 
     //creation de la solution
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de donner une solution a un problème")
     @PostMapping("/createSolution/{email}/{password}/{titreProbleme}/{ressources}")
     public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password, @PathVariable String titreProbleme, @PathVariable String ressources) {
 
@@ -178,7 +178,7 @@ public class UserController {
 
     }
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de commenter une solution")
     @PostMapping("/createCommentaire/{email}/{password}/{titreProbleme}")
     public String createCommentaire(@RequestBody Commentaire commentaire, @PathVariable String
             email, @PathVariable String password, @PathVariable String titreProbleme) {
@@ -216,7 +216,8 @@ public class UserController {
 
     }
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    //modification de la solution
+    @ApiOperation(value = "Controller qui permet de modifier une solution")
     @PutMapping("/updateSolution/{email}/{password}/{titreProbleme}")
     public String updateSolution(@RequestBody Solution solution, @PathVariable String
             email, @PathVariable String password, @PathVariable String titreProbleme) {
@@ -270,7 +271,7 @@ public class UserController {
     }
 
     //modification du probleme
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de modifier un problème")
     @PutMapping("/modifierProbleme/{email}/{password}/{titre}")
     public String modifierProbleme(@RequestBody Probleme probleme,@PathVariable String email, @PathVariable String password ,@PathVariable String titre){
 
@@ -320,7 +321,7 @@ public class UserController {
     }
 
     //modification du commentaire
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de modifier un commentaire")
     @PutMapping("/modifierCommentaire/{email}/{password}/{id}")
     public String mofifierCommentaire(@RequestBody Commentaire commentaire, @PathVariable String email, @PathVariable String password, @PathVariable Long id){
 

@@ -21,7 +21,7 @@ import java.util.*;
 * Le controlleur ci-dessous réagit à des demandes venant des simples visitors
 * */
 
-@Api(value = "hello", description = "Sample hello world application")
+@Api(value = "hello", description = "Les cas d'utilisations pour le visiteur lui seul")
 @RestController
 @RequestMapping("/visitor")
 @AllArgsConstructor
@@ -34,7 +34,7 @@ public class VisitorController {
     final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
     //methode permettant de creer un compte utilisateur
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de créer un compte pour devenir utilisateur")
     @PostMapping("/creerCompte")//{email}/{password}
     public String creerCompte(@RequestBody Utilisateur utilisateur){
 
@@ -63,7 +63,7 @@ public class VisitorController {
        }
     }
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    /*@ApiOperation(value = "Just to test the sample test api of My App Service")
     @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
 
@@ -83,14 +83,16 @@ public class VisitorController {
 
 
         return servicesVisitors.lireCommentaire();
-    }
+    }*/
 
+    @ApiOperation(value = "Controller qui permet d'afficher les technologies")
     @GetMapping("/afficherProTchno")
     public List<Probleme_technologies> afficherProblemeTechnologies(){
 
         return servicesVisitors.afficherProblemeTechnologies();
     }
 
+    @ApiOperation(value = "Controller qui permet de fair la recherche d'un problème par mot clé")
     @GetMapping("/rechercherProblemeParMotsCles/{motsCles}")
     public List<Object> rechercherProblemeParMotsCles(@PathVariable String motsCles){
 
@@ -162,12 +164,12 @@ public class VisitorController {
     }
 
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+   /* @ApiOperation(value = "Just to test the sample test api of My App Service")
    @GetMapping("/afficherTechnologie")
     public List<Technologie> readTechnologie(){
 
         return servicesVisitors.lireTechnologie();
-    }
+    }*/
 }
 
 

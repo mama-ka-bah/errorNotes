@@ -12,10 +12,13 @@ import java.util.List;
 public class ServicesVisitorsImpl implements ServicesVisitors{
 
     final RepositoryProbleme repositoryProbleme;
+
     final RepositoryCommentaire repositoryCommentaire;
+
     final RepositorySolution repositorySolution;
 
    final RepositoryUtilisateur repositoryUtilisateur;
+
    final RepositoryCompte repositoryCompte;
 
    final RepositoryProblemeTechnologie repositoryProblemeTechnologie;
