@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@Api(value = "hello", description = "Sample hello world application")
+@Api(value = "hello", description = "Les cas d'utilisations pour l'administrateur lui seul")
 @RestController
 @RequestMapping("/admin")
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class AdminController {
     final private ServicesVisitors servicesVisitors;
     final  private ServicesUsers servicesUsers;
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de créer un compte admin")
     @PostMapping("/creerCompteAdmin/{email}/{password}")//{emailAcree}/{passwordAcree}
 
     //methode permettant de creer un compte admin
@@ -52,7 +52,7 @@ public class AdminController {
        }
     }
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de créer les états qui seront affecté à un problème")
     @PostMapping("/createEtat/{email}/{password}")
     public String createEtat(@RequestBody Etat etat, @PathVariable  String email, @PathVariable String password){
 
@@ -74,7 +74,7 @@ public class AdminController {
         }
     }
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de creer les Technologies des différents problème")
     @PostMapping("/createTechnologie/{email}/{password}")
     public String createTechnologie(@RequestBody Technologie technologie, @PathVariable  String email, @PathVariable String password){
 
@@ -95,7 +95,7 @@ public class AdminController {
         }
     }
 
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de supprimer un commentaire")
     @DeleteMapping("/deleteCommentaire/{email}/{password}/{id}")
     public String deleteCommentaire(@PathVariable  String email, @PathVariable String password, @PathVariable Long id){
         if (servicesUsers.connexion(email, password) == true && servicesUsers.trouverCompteParEmail(email).getRole().equals("admin")){

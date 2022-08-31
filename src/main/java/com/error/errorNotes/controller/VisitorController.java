@@ -21,7 +21,7 @@ import java.util.*;
 * Le controlleur ci-dessous réagit à des demandes venant des simples visitors
 * */
 
-@Api(value = "hello", description = "Sample hello world application")
+@Api(value = "hello", description = "Les cas d'utilisations pour le visiteur lui seul")
 @RestController
 @RequestMapping("/visitor")
 @AllArgsConstructor
@@ -34,7 +34,7 @@ public class VisitorController {
     final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
     //methode permettant de creer un compte utilisateur
-    @ApiOperation(value = "Just to test the sample test api of My App Service")
+    @ApiOperation(value = "Controller qui permet de créer un compte pour devenir utilisateur")
     @PostMapping("/creerCompte")//{email}/{password}
     public String creerCompte(@RequestBody Utilisateur utilisateur){
 
@@ -63,7 +63,7 @@ public class VisitorController {
        }
     }
 
-    @ApiOperation(value = "Permet d'afficher tous les problemes")
+    /*@ApiOperation(value = "Permet d'afficher tous les problemes")
     @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
 
@@ -81,11 +81,13 @@ public class VisitorController {
         @GetMapping("/afficherCommentaire")
         public List<Commentaire> readCommentaire(){
 
+<<<<<<< HEAD
 
             return servicesVisitors.lireCommentaire();
         }
     */
-    @ApiOperation(value = "Permet d'afficher les problemes et leur technologie")
+
+    @ApiOperation(value = "Controller qui permet d'afficher les technologies")
     @GetMapping("/afficherProTchno")
     public List<Probleme_technologies> afficherProblemeTechnologies(){
 
@@ -179,12 +181,14 @@ public class VisitorController {
     }
 
 
+  /*
     @ApiOperation(value = "Permet d'afficher toutes les technologies")
+ @ApiOperation(value = "Just to test the sample test api of My App Service")
    @GetMapping("/afficherTechnologie")
     public List<Technologie> readTechnologie(){
 
         return servicesVisitors.lireTechnologie();
-    }
+    }*/
 }
 
 

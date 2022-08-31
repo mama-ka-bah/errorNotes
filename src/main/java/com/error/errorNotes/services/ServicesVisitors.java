@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public interface ServicesVisitors {
 
+    //Methode qui permet de créer un compte utilisateur
     Utilisateur creerCompteUser(Utilisateur utilisateur, String email, String password);
 
     List<Probleme> lireProbleme();
@@ -16,13 +17,15 @@ public interface ServicesVisitors {
 
     List<Solution> lireSolution();
 
-
+    //Methode qui permet d'afficher les problèmeTechnologies
     List<Probleme_technologies> afficherProblemeTechnologies();
 
     Probleme_technologies trouverProbleme_technologiesParProbleme(Probleme probleme);
 
+    //Methode qui permet de retrouver les problèmeTechnologies par le titre du problème
     Object trouverProbleme_technologieParTitreProbleme(String titre);
 
+    //Methode qui permet de retrouver les problèmeTechnologies par le titre du problème solution
     Object trouverProbleme_technologieParTitreProblemeSolution(String titre);
 
     List<Technologie> lireTechnologie();
