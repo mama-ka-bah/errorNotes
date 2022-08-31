@@ -52,4 +52,8 @@ public interface ServicesUsers {
 
     Commentaire trouverCommentaireParId(Long id);
 
+    void supprimerRessourceParIdSolution(Long idSolution);
+
+    void supprimerProblemeTechnologie(Long idProbleme);
+
 }

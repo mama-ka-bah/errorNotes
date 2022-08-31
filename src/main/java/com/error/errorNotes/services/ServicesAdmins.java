@@ -1,9 +1,7 @@
 package com.error.errorNotes.services;
 
 
-import com.error.errorNotes.model.Etat;
-import com.error.errorNotes.model.Technologie;
-import com.error.errorNotes.model.Utilisateur;
+import com.error.errorNotes.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,5 +21,9 @@ public interface ServicesAdmins{
 
     //Methode qui permet de récupérer un état par son nom
     Etat TrouverEtatparNom(String nom);
+
+    String suprimerProbleme(Long probleme_id, Long solution_id);
+
+    String supprimerLesCommentairesSolution(Solution solution);
 
 }

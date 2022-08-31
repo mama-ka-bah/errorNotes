@@ -4,7 +4,6 @@ package com.error.errorNotes.services;
 import com.error.errorNotes.model.*;
 import com.error.errorNotes.repository.*;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -187,7 +186,6 @@ public class ServicesUserImpl implements ServicesUsers {
 
         @Override
         public Commentaire modifierCommentaire(Commentaire commentaire, Long id){
-
             return repositoryCommentaire.findById(id)
                     .map(c -> {
                         if (commentaire.getContenu() != null)
@@ -200,5 +198,15 @@ public class ServicesUserImpl implements ServicesUsers {
         public Commentaire trouverCommentaireParId(Long id){
             return repositoryCommentaire.findById(id).get();
         }
+
+    @Override
+    public void supprimerRessourceParIdSolution(Long idSolution) {
+        repositoryRessource.DELETE_RESSOURCE(idSolution);
+    }
+
+    @Override
+    public void supprimerProblemeTechnologie(Long idProbleme) {
+        repositoryProblemeTechnologie.DELETE_PROBLEME_TECHNOLOGIE_PAR_PROBLEME(idProbleme);
+    }
 
 }

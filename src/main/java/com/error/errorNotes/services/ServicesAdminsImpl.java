@@ -1,15 +1,8 @@
 package com.error.errorNotes.services;
 
 
-import com.error.errorNotes.model.Etat;
-import com.error.errorNotes.model.Technologie;
-import com.error.errorNotes.repository.RepositoryCommentaire;
-import com.error.errorNotes.repository.RepositoryEtat;
-import com.error.errorNotes.repository.RepositoryTechnologie;
-import com.error.errorNotes.model.Compte;
-import com.error.errorNotes.model.Utilisateur;
-import com.error.errorNotes.repository.RepositoryCompte;
-import com.error.errorNotes.repository.RepositoryUtilisateur;
+import com.error.errorNotes.model.*;
+import com.error.errorNotes.repository.*;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +16,8 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     private final RepositoryCommentaire repositoryCommentaire;
     private final RepositoryUtilisateur repositoryUtilisateur;
     private final RepositoryCompte repositoryCompte;
+    private final RepositoryProbleme repositoryProbleme;
+    private final RepositorySolution repositorySolution;
 
     @Override
     public Etat creerEtat(Etat etat, String email) {
@@ -70,6 +65,19 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     @Override
     public Etat TrouverEtatparNom(String nom) {
         return repositoryEtat.findByNom(nom);
+    }
+
+    @Override
+    public String suprimerProbleme(Long probleme_id, Long solution_id) {
+        repositorySolution.deleteById(solution_id);
+        repositoryProbleme.deleteById(probleme_id);
+        return "solution supprimé avec succes";
+    }
+
+    @Override
+    public String supprimerLesCommentairesSolution(Solution solution) {
+        repositoryCommentaire.deleteBySolution(solution);
+        return "commentaire supprimé";
     }
 
 }

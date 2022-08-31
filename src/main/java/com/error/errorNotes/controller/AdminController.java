@@ -108,4 +108,29 @@ public class AdminController {
     }
 
 
+    @ApiOperation(value = "Controller qui permet de supprimer un probleme")
+    @DeleteMapping("/deleteProbleme/{email}/{password}/{titre}")
+    public String supprimerProbleme(@PathVariable String email, @PathVariable String password, @PathVariable String titre){
+
+        //recupere le probleme sur lequel la solution doit etre  posté
+        Probleme pro = servicesUsers.trouverProblemeParTitre(titre);
+
+        //verifie si c'est l'user actuelle est un admin et si son mot de passe est correct
+        if (servicesUsers.connexion(email, password) == true && servicesUsers.trouverCompteParEmail(email).getRole().equals("admin") || email.equals("kmahamadou858@gmail.com") && password.equals("keita123@")){
+            if (pro != null){
+                Long idPro = pro.getId();
+                Solution solu = servicesUsers.trouverSolutionParIdProbleme(idPro);
+                Long idSolu = solu.getId();
+                servicesUsers.supprimerRessourceParIdSolution(idSolu);
+                servicesAdmins.supprimerLesCommentairesSolution(solu);
+                servicesUsers.supprimerProblemeTechnologie(idPro);
+                servicesAdmins.suprimerProbleme(idPro, idSolu);
+                return "Probleme supprimé avec succès";
+            }else {
+                return "Ce probleme n'existe pas";
+            }
+        }else {
+            return "Acces refusé";
+        }
+    }
 }
