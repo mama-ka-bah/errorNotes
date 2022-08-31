@@ -119,10 +119,13 @@ public class VisitorController {
             Object pro = new Object();
 
             Long idPro = servicesUsers.trouverProblemeParTitre(titre).getId();
+            //si le probleme n'a pas de solution
             if (servicesUsers.trouverSolutionParIdProbleme(idPro) == null){
-                //recuperation du probleme
+                //recuperation du probleme sans solution
                pro = servicesVisitors.trouverProbleme_technologieParTitreProbleme(titre);
-            }else {
+
+            }else {//si le probleme a une solution on l'affiche avec sa solution
+
                 pro = servicesVisitors.trouverProbleme_technologieParTitreProblemeSolution(titre);
             }
 
@@ -151,14 +154,25 @@ public class VisitorController {
     }
 
     @GetMapping("/afficherUnProbleme/{titre}")
-    public Probleme afficherUnProblemeDonnee(@PathVariable String titre){
+    public List<Object> afficherUnProblemeDonnee(@PathVariable String titre){
 
         //recupere le probleme correspondant au titre
         Probleme probleme = servicesUsers.trouverProblemeParTitre(titre);
 
-        servicesUsers.trouverSolutionParIdProbleme(probleme.getId());
+        List<Object> valeur = new ArrayList<>();
+        if(probleme != null){
+            Solution solution = servicesUsers.trouverSolutionParIdProbleme(probleme.getId());
+            if( solution != null){
+                valeur.add(solution);
+                System.out.println("hjklmù*");
+            }else {
+                valeur.add(probleme);
+            }
 
-        return probleme;
+        }
+
+
+        return valeur;
     }
 
 

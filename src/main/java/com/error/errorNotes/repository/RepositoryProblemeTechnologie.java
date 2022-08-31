@@ -12,6 +12,6 @@ public interface RepositoryProblemeTechnologie extends JpaRepository<Probleme_te
     @Query(value="select titre, descpt, date, t.nom from probleme p, etat e, technologie t, probleme_technologies pt where p.id=pt.probleme_id and  t.id=pt.techno_id and  p.etat_id=e.id and p.titre = :titre", nativeQuery = true)
     public Object FIND_PROBLEME_TECHNO_ETAT_PAR_TITRE(@Param("titre") String titre);
 
-    @Query(value="select s.contenu from probleme p, technologie t, probleme_technologies pt, solution s, etat e where p.id=pt.probleme_id and t.id=pt.techno_id and p.etat_id = e.id and s.probleme_id = p.id and p.titre = :titre", nativeQuery = true)
+    @Query(value="select titre, descpt, p.date, e.nom, s.contenu from probleme p, technologie t, probleme_technologies pt, solution s, etat e where p.id=pt.probleme_id and t.id=pt.techno_id and p.etat_id = e.id and s.probleme_id = p.id and p.titre = :titre", nativeQuery = true)
     public Object FIND_PROBLEME_TECHNO_ETAT_PAR_TITRE_SOLUTION(@Param("titre") String titre);
 }
