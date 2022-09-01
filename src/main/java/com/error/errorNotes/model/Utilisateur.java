@@ -20,7 +20,7 @@ public class Utilisateur {
     private String prenom;
     private String adresse;
 
-    //(cascade = CascadeType.ALL)
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Compte compte;
 }

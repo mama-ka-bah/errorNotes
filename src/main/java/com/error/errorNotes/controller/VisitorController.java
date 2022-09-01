@@ -30,8 +30,6 @@ public class VisitorController {
     final private ServicesVisitors servicesVisitors;
     final private ServicesUsers servicesUsers;
 
-    final private RepositoryProbleme repositoryProbleme;
-    final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
     //methode permettant de creer un compte utilisateur
     @ApiOperation(value = "Controller qui permet de créer un compte pour devenir utilisateur")
@@ -63,29 +61,12 @@ public class VisitorController {
        }
     }
 
-    /*@ApiOperation(value = "Permet d'afficher tous les problemes")
+    @ApiOperation(value = "Permet d'afficher tous les problemes")
     @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
 
         return servicesVisitors.lireProbleme();
     }
-    /*
-        @ApiOperation(value = "Just to test the sample test api of My App Service")
-        @GetMapping("/afficherSolution")
-        public List<Solution> readSolution(){
-
-            return servicesVisitors.lireSolution();
-        }
-
-        @ApiOperation(value = "Just to test the sample test api of My App Service")
-        @GetMapping("/afficherCommentaire")
-        public List<Commentaire> readCommentaire(){
-
-<<<<<<< HEAD
-
-            return servicesVisitors.lireCommentaire();
-        }
-    */
 
     @ApiOperation(value = "Controller qui permet d'afficher les technologies")
     @GetMapping("/afficherProTchno")

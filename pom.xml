@@ -53,6 +53,16 @@
 		<!-- dependance pour occurrence fin -->
 
 
+		<!-- dependance pour test unitaire debut-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- dependance pour test unitaire fin-->
+
+
 		<!-- debut swagger-->
 		<dependency>
 			<groupId>io.springfox</groupId>

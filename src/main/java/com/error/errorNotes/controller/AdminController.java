@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     final private ServicesAdmins servicesAdmins;
-    final private ServicesVisitors servicesVisitors;
     final  private ServicesUsers servicesUsers;
 
     @ApiOperation(value = "Controller qui permet de créer un compte admin")
