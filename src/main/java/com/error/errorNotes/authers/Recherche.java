@@ -24,7 +24,6 @@ public class Recherche {
            int occu = 0;
 
            Solution solution = servicesUsers.trouverSolutionParIdProbleme(pt.getId());
-           //Commentaire commentaire = servicesUsers.trou
 
            //On parcours le tableau des mots
            for (String mc: tabMots){
@@ -47,10 +46,18 @@ public class Recherche {
                    occu += StringUtils.countMatches(pt.getTechno().getNom(), mc);
                }
                if (solution != null){
+                   List<Commentaire> commentaireList = servicesUsers.trouverTousLesComentaireParSolution(solution.getId());
                    if (solution.getContenu().contains(mc)){
                        occu += StringUtils.countMatches(solution.getContenu(), mc);
                        System.out.println("Mon occurence est à : " + occu);
                    }
+
+                   for (Commentaire c: commentaireList){
+                       if (c.getContenu().contains(mc)){
+                           occu += StringUtils.countMatches(c.getContenu(), mc);
+                       }
+                   }
+
                }
            }
 
