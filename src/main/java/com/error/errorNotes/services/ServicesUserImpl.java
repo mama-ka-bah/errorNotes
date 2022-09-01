@@ -210,8 +210,8 @@ public class ServicesUserImpl implements ServicesUsers {
     }
 
     @Override
-    public List<Commentaire> trouverTousLesComentaireParSolution(Solution solution) {
-        return repositoryCommentaire.findBYSolution(solution);
+    public List<Commentaire> trouverTousLesComentaireParSolution(Long solution_id) {
+        return repositoryCommentaire.FIND_ALLA_COMMENTAIRE_PAR_SOLUION_ID(solution_id);
     }
 
 }
