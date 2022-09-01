@@ -111,7 +111,7 @@ public class VisitorController {
         List<Object> listObjectAretourner = new ArrayList<>();
 
 
-        List<Map.Entry<String, Integer>> list = recherche.rechercherProblemeParMotsCles(tousProblemesTechnologies, tabMots);
+        List<Map.Entry<String, Integer>> list = recherche.rechercherProblemeParMotsCles(tousProblemesTechnologies, tabMots, servicesUsers);
 
 
         //on parcours la liste trier pour recupererr les problemes correspondant
