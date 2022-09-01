@@ -1,8 +1,6 @@
 package com.error.errorNotes.authers;
 
 import com.error.errorNotes.model.Probleme_technologies;
-import com.error.errorNotes.services.ServicesUsers;
-import com.error.errorNotes.services.ServicesVisitors;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 

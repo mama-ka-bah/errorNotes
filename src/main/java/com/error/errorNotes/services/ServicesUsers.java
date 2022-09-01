@@ -56,4 +56,6 @@ public interface ServicesUsers {
 
     void supprimerProblemeTechnologie(Long idProbleme);
 
+    List<Commentaire> trouverTousLesComentaireParSolution(Solution solution);
+
 }

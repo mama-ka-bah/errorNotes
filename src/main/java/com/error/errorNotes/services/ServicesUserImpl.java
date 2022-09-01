@@ -209,4 +209,9 @@ public class ServicesUserImpl implements ServicesUsers {
         repositoryProblemeTechnologie.DELETE_PROBLEME_TECHNOLOGIE_PAR_PROBLEME(idProbleme);
     }
 
+    @Override
+    public List<Commentaire> trouverTousLesComentaireParSolution(Solution solution) {
+        return repositoryCommentaire.findBYSolution(solution);
+    }
+
 }
