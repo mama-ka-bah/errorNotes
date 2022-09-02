@@ -28,13 +28,12 @@ public class ServicesVisitorsImpl implements ServicesVisitors{
 
     //Implementation de la methode permettant de créer un compte utilisateur
     @Override
-    public Utilisateur creerCompteUser(Utilisateur utilisateur, String email, String password) {
+    public Utilisateur creerCompteUser(Utilisateur utilisateur) {
         Compte compte = new Compte();
-        compte.setEmail(email);
-        compte.setPassword(password);
-        compte.setRole("user");
-        repositoryCompte.save(compte);
-        utilisateur.setCompte(compte);
+
+        utilisateur.getCompte().setRole("user");
+
+
         return repositoryUtilisateur.save(utilisateur);
     }
 

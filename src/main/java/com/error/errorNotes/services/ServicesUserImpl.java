@@ -97,7 +97,7 @@ public class ServicesUserImpl implements ServicesUsers {
 
     //fonction utilisé pour verfier si l'user a un compte pas et si son password est correct
     @Override
-    public Boolean connexion(String email, String password) {
+    public Compte connexion(String email, String password) {
 
         //on se sert de l'email de l'user pour recuperer son compte
         Compte compte = repositoryCompte.findByEmail(email);
@@ -105,10 +105,10 @@ public class ServicesUserImpl implements ServicesUsers {
         //on verfie si son compte a été retrouvé ou pas, et si son password est correct également
         if (compte != null && compte.getPassword().equals(password)) {
             System.out.println("Connexion éffectuée avec succes");
-            return true;
+            return compte;
         } else {//lorsque son compte n'a pas été retrouvé
             System.out.println("ce compte n'existe pas");
-            return false;
+            return null;
         }
     }
 
@@ -196,7 +196,12 @@ public class ServicesUserImpl implements ServicesUsers {
 
         @Override
         public Commentaire trouverCommentaireParId(Long id){
+        if(repositoryCommentaire.findById(id) != null){
             return repositoryCommentaire.findById(id).get();
+        }else {
+            return null;
+        }
+
         }
 
     @Override

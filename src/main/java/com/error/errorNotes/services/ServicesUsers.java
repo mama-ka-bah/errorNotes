@@ -19,7 +19,7 @@ public interface ServicesUsers {
 
     //Methode qui permet de se connecter par email et password
   //  Etat creerEtat(Etat etat);
-    Boolean connexion(String email, String password);
+    Compte connexion(String email, String password);
 
     //Methode qui permet de retrouver le problème par le titre
     Probleme trouverProblemeParTitre(String titre);

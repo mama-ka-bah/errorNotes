@@ -9,7 +9,7 @@ import java.util.List;
 public interface ServicesVisitors {
 
     //Methode qui permet de créer un compte utilisateur
-    Utilisateur creerCompteUser(Utilisateur utilisateur, String email, String password);
+    Utilisateur creerCompteUser(Utilisateur utilisateur);
 
     List<Probleme> lireProbleme();
 

@@ -49,7 +49,7 @@ public class VisitorController {
                if (utilisateur.getCompte().getPassword().length() >= 8){
 
                    //
-                   servicesVisitors.creerCompteUser(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
+                   servicesVisitors.creerCompteUser(utilisateur);
                    return "Votre compte est créée avec succes";
                }else{
                    return "Le mot de passe doit être superieur à 8 caracteurs";

@@ -20,7 +20,7 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     private final RepositorySolution repositorySolution;
 
     @Override
-    public Etat creerEtat(Etat etat, String email) {
+    public Etat creerEtat(Etat etat) {
 
         return repositoryEtat.save(etat);
     }
@@ -38,27 +38,10 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     }
 
     @Override
-    public Utilisateur creerCompteAdmin(Utilisateur utilisateur, String email, String password) {
+    public Utilisateur creerCompteAdmin(Utilisateur utilisateur) {
 
-        //on instancie la classe compte
-        Compte compte = new Compte();
+        utilisateur.getCompte().setRole("admin");
 
-        //on attribue au compte instacier l'email donné
-        compte.setEmail(email);
-
-        //on attribue également au compte instacier
-        compte.setPassword(password);
-
-        //on lui attribue le role admin
-        compte.setRole("admin");
-
-        //On associe le compte manupilé ci-dessus au l'utilisateur
-        utilisateur.setCompte(compte);
-
-        //on enregistre le compte de l'utilisateur
-        repositoryCompte.save(compte);
-
-        //on enregistre l'utilisateur lui-meme
         return repositoryUtilisateur.save(utilisateur);
     }
 
@@ -68,9 +51,14 @@ public class ServicesAdminsImpl implements ServicesAdmins{
     }
 
     @Override
-    public String suprimerProbleme(Long probleme_id, Long solution_id) {
-        repositorySolution.deleteById(solution_id);
+    public String suprimerProbleme(Long probleme_id) {
         repositoryProbleme.deleteById(probleme_id);
+        return "solution supprimé avec succes";
+    }
+
+    @Override
+    public String suprimerSolution(Long solution_id) {
+        repositorySolution.deleteById(solution_id);
         return "solution supprimé avec succes";
     }
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public interface ServicesAdmins{
 
     //Methode qui permet de créer les états
-    Etat creerEtat(Etat etat, String email);
+    Etat creerEtat(Etat etat);
 
     //Methode qui permet de créer les technologies
     Technologie creerTechnologie(Technologie technologie, String email);
@@ -17,12 +17,13 @@ public interface ServicesAdmins{
     String supprimer(long id);
 
     //Methode qui permet de créer un compte admin
-    Utilisateur creerCompteAdmin(Utilisateur utilisateur, String email, String password);
+    Utilisateur creerCompteAdmin(Utilisateur utilisateur);
 
     //Methode qui permet de récupérer un état par son nom
     Etat TrouverEtatparNom(String nom);
 
-    String suprimerProbleme(Long probleme_id, Long solution_id);
+    String suprimerProbleme(Long probleme_id);
+    String suprimerSolution(Long solution_id);
 
     String supprimerLesCommentairesSolution(Solution solution);
 

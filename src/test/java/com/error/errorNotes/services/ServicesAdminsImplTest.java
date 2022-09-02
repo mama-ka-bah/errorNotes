@@ -29,7 +29,7 @@ class ServicesAdminsImplTest {
         etat.setNom("Initié");
         etat.setId(1L);
 
-        servicesAdmins.creerEtat(etat, "kmahamadou858@gmail.com");
+      //  servicesAdmins.creerEtat(etat, "kmahamadou858@gmail.com");
 
     }
 
