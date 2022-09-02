@@ -1,8 +1,10 @@
 package com.error.errorNotes.authers;
 
+import com.error.errorNotes.model.Commentaire;
 import com.error.errorNotes.model.Probleme_technologies;
+import com.error.errorNotes.model.Solution;
 import com.error.errorNotes.services.ServicesUsers;
-import com.error.errorNotes.services.ServicesVisitors;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,7 +12,7 @@ import java.util.*;
 
 @NoArgsConstructor
 public class Recherche {
-    public  List<Map.Entry<String, Integer>> rechercherProblemeParMotsCles(List<Probleme_technologies> tousProblemesTechnologies, String[] tabMots){
+    public  List<Map.Entry<String, Integer>> rechercherProblemeParMotsCles(List<Probleme_technologies> tousProblemesTechnologies, String[] tabMots, ServicesUsers servicesUsers){
 
        //Declaration d'un hasmap pour stocker les titre des problemes rechercherchés
        Map<String, Integer> map = new HashMap<>();
@@ -20,6 +22,8 @@ public class Recherche {
 
            //declaration de variable permettant de l'ocurence d'un mot dans un probleme
            int occu = 0;
+
+           Solution solution = servicesUsers.trouverSolutionParIdProbleme(pt.getId());
 
            //On parcours le tableau des mots
            for (String mc: tabMots){
@@ -40,6 +44,20 @@ public class Recherche {
                //Fonctionne comme la première condition mais ici on fait la recherche dans le nom de la technologie
                if (pt.getTechno().getNom().contains(mc)){
                    occu += StringUtils.countMatches(pt.getTechno().getNom(), mc);
+               }
+               if (solution != null){
+                   List<Commentaire> commentaireList = servicesUsers.trouverTousLesComentaireParSolution(solution.getId());
+                   if (solution.getContenu().contains(mc)){
+                       occu += StringUtils.countMatches(solution.getContenu(), mc);
+                       System.out.println("Mon occurence est à : " + occu);
+                   }
+
+                   for (Commentaire c: commentaireList){
+                       if (c.getContenu().contains(mc)){
+                           occu += StringUtils.countMatches(c.getContenu(), mc);
+                       }
+                   }
+
                }
            }
 

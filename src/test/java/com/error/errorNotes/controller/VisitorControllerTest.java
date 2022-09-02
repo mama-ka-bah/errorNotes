@@ -47,7 +47,7 @@ class VisitorControllerTest {
     @Test
     void rechercherProblemeParMotsCles() {
 
-        visitorController.rechercherProblemeParMotsCles("bean 1");
+        visitorController.rechercherProblemeParMotsCles("tttt ");
     }
 
     @Test
