@@ -33,20 +33,41 @@ public class AdminController {
         //System.out.println(compte.getRole());
 
         //verifie si l'user actuel a un compte et si son password est correct et s'il a le role admin
-        if (compte != null && compte.getRole().equals("admin") || email.equals("kmahamadou858@gmail.com") && password.equals("keita123@")){//|| compte.getEmail().equals("kmahamadou10@gmail.com")){
+        if (compte != null && compte.getRole().equals("admin") || email.equals("kmahamadou858@gmail.com") && password.equals("keita123@")){
 
 
             //verifie si l'user admin que l'admin actuel veut crée existe ou pas
             if (compteAcree == null){
 
-                //creation du compte admin
-               servicesAdmins.creerCompteAdmin(utilisateur);
+                if (compteAcree.getEmail().trim().equals("") || compteAcree.getPassword().trim().equals("")){
 
-               return "compte admin créé";
-           }else {//lorsque le compte existe déjà
-               return "Ce compte existe déjà";
-           }
+                    if(compte.getPassword().length() >= 8){
+                        //creation du compte admin
+                        servicesAdmins.creerCompteAdmin(utilisateur);
+
+                        System.out.println("compte admin créé");
+                        return "compte admin créé";
+                    }else {
+
+                        System.out.println("Le mot de passe doit être superieur ou égale à 8");
+                        return "Le mot de passe doit être superieur ou égale à 8";
+                    }
+
+                }else {//lorsque le compte existe déjà
+
+                    System.out.println("Ce compte existe déjà");
+                    return "Ce compte existe déjà";
+                }
+
+                }else {
+
+                System.out.println("Veuillez renseigner les champs");
+                return "Veuillez renseigner les champs";
+                }
+
        }else {//authentification échoué
+
+            System.out.println("Acces refusé");
            return "Acces refusé";
        }
     }
@@ -64,11 +85,16 @@ public class AdminController {
                 //creation de l'etat
                 servicesAdmins.creerEtat(etat);
 
+                System.out.println("Etat enregistré avec succes");
                 return "Etat enregistré avec succes";
             }else{
+
+                System.out.println("cet Etat existe dejà");
                 return "cet Etat existe dejà";
             }
             }else {//authentification échoué
+
+            System.out.println("Acces refusé");
             return "Acces refusé";
         }
     }
@@ -85,11 +111,17 @@ public class AdminController {
 
                //creation de la technologie
                servicesAdmins.creerTechnologie(technologie, email);
+
+               System.out.println("Technologie enregistré avec succes");
                return "Technologie enregistré avec succes";
            }else {
+
+               System.out.println("cette Technologie existe déjà");
                return "cette Technologie existe déjà";
            }
         }else {//authentification échoué
+
+            System.out.println("Acces refusé");
             return "Acces refusé";
         }
     }
@@ -99,8 +131,12 @@ public class AdminController {
     public String deleteCommentaire(@PathVariable  String email, @PathVariable String password, @PathVariable Long id){
         if (servicesUsers.connexion(email, password) != null && servicesUsers.trouverCompteParEmail(email).getRole().equals("admin") || email.equals("kmahamadou858@gmail.com") && password.equals("keita123@")){
             servicesAdmins.supprimer(id);
+
+            System.out.println("Commentaire supprimé avec succes");
             return "Commentaire supprimé avec succes";
         }else {
+
+            System.out.println("Acces refusé");
             return "Acces refusé";
         }
 
@@ -111,7 +147,7 @@ public class AdminController {
     @DeleteMapping("/deleteProbleme/{email}/{password}/{titre}")
     public String supprimerProbleme(@PathVariable String email, @PathVariable String password, @PathVariable String titre){
 
-        //recupere le probleme sur lequel la solution doit etre  posté
+        //recupere le probleme sur lequel la solution doit etre posté
         Probleme pro = servicesUsers.trouverProblemeParTitre(titre);
 
         //verifie si c'est l'user actuelle est un admin et si son mot de passe est correct
@@ -126,16 +162,24 @@ public class AdminController {
                     servicesAdmins.supprimerLesCommentairesSolution(solu);
                     servicesUsers.supprimerProblemeTechnologie(idPro);
                     servicesAdmins.suprimerProbleme(idPro);
+
+                    System.out.println("Probleme supprimé avec succès");
                     return "Probleme supprimé avec succès";
                 }else {
                     servicesUsers.supprimerProblemeTechnologie(idPro);
                     servicesAdmins.suprimerProbleme(idPro);
+
+                    System.out.println("Problème supprimé avec succès");
                     return "Problème supprimé avec succès";
                 }
             }else {
+
+                System.out.println("Ce probleme n'existe pas");
                 return "Ce probleme n'existe pas";
             }
         }else {
+
+            System.out.println("Acces refusé");
             return "Acces refusé";
         }
     }

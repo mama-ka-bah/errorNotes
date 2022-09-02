@@ -203,29 +203,34 @@ public class UserController {
 
             //verifie si le probleme existe ou pas
             if (probleme != null) {
+                if (commentaire.getContenu() != null){
+                    //recupere l'id du probleme
+                    Long idProbleme = probleme.getId();
 
-                //recupere l'id du probleme
-                Long idProbleme = probleme.getId();
+                    //recupere la solution correspondant au probleme
+                    Solution solution = servicesUsers.trouverSolutionParIdProbleme(idProbleme);
 
-                //recupere la solution correspondant au probleme
-                Solution solution = servicesUsers.trouverSolutionParIdProbleme(idProbleme);
+                    //recuperation de l'user par son email
+                    Compte compteUser = servicesUsers.trouverCompteParEmail(email);
 
-                //recuperation de l'user par son email
-                Compte compteUser = servicesUsers.trouverCompteParEmail(email);
+                    //recuperation de l'utilisateur par son compte
+                    Utilisateur user = servicesUsers.trouverUtilisateurParCompte(compteUser);
 
-                //recuperation de l'utilisateur par son compte
-                Utilisateur user = servicesUsers.trouverUtilisateurParCompte(compteUser);
+                    //c reation du commentaire
+                    servicesUsers.creerCommentaire(commentaire, user, solution);
 
-                //c reation du commentaire
-                servicesUsers.creerCommentaire(commentaire, user, solution);
+                    System.out.println("Commentaire enregistré avec succes");
+                    return "Commentaire enregistré avec succes";
+                } else {//si on trouve pas le probleme
 
-                System.out.println("Commentaire enregistré avec succes");
-                return "Commentaire enregistré avec succes";
-            } else {//si on trouve pas le probleme
+                    System.out.println("Veuillez mettre un commentaire");
+                    return "Veuillez mettre un commentaire";
+                }
+                }else {
 
-                System.out.println("Ce probleme n'existe pas");
-                return "Ce probleme n'existe pas";
-            }
+                    System.out.println("Veuillez saisir quelques choses");
+                    return "Veuillez saisir quelques choses";
+                }
         } else {//au cas ou l'authentification echouera
 
             System.out.println("Acces refusé");

@@ -21,9 +21,8 @@ class VisitorControllerTest {
 
         Utilisateur utilisateur = new Utilisateur();
 
-        String email = "kmahamadou858@gmail.com";
-        String password = "keita123@";
 
+        //les informations de l'user à créée
         utilisateur.setAdresse("Bamako");
         utilisateur.setNom("Mahamadou");
         utilisateur.setPrenom("Keita");
@@ -47,7 +46,7 @@ class VisitorControllerTest {
     @Test
     void rechercherProblemeParMotsCles() {
 
-        visitorController.rechercherProblemeParMotsCles("tttt ");
+        visitorController.rechercherProblemeParMotsCles("ggg jjjk nn");
     }
 
     @Test

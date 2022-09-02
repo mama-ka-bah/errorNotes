@@ -53,8 +53,10 @@ public class Recherche {
                    }
 
                    for (Commentaire c: commentaireList){
-                       if (c.getContenu().contains(mc)){
-                           occu += StringUtils.countMatches(c.getContenu(), mc);
+                       if (c.getContenu() != null){
+                           if (c.getContenu().contains(mc)){
+                               occu += StringUtils.countMatches(c.getContenu(), mc);
+                           }
                        }
                    }
 

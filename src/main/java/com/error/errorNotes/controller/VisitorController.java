@@ -3,8 +3,6 @@ package com.error.errorNotes.controller;
 
 import com.error.errorNotes.authers.Recherche;
 import com.error.errorNotes.model.*;
-import com.error.errorNotes.repository.RepositoryProbleme;
-import com.error.errorNotes.repository.RepositoryProblemeTechnologie;
 import com.error.errorNotes.services.ServicesUsers;
 import com.error.errorNotes.services.ServicesVisitors;
 import io.swagger.annotations.Api;
@@ -13,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 import java.util.*;
 
 
@@ -33,30 +30,38 @@ public class VisitorController {
 
     //methode permettant de creer un compte utilisateur
     @ApiOperation(value = "Controller qui permet de créer un compte pour devenir utilisateur")
-    @PostMapping("/creerCompte")//{email}/{password}
+    @PostMapping("/creerCompte")
     public String creerCompte(@RequestBody Utilisateur utilisateur){
 
-        //
+        //On verifie si le compte user à crée existe ou pa
        if(servicesUsers.trouverCompteParEmail(utilisateur.getCompte().getEmail()) == null){
 
-           //
+           //verfie si l'email n'est pas vide  ou si le password n'est pas vide
            if(utilisateur.getCompte().getEmail().trim().equals("") || utilisateur.getCompte().getPassword().trim().equals("")){
 
+               System.out.println("Veuillez remplir les champs obligatoire");
                return "Veuillez remplir les champs obligatoire";
            }else {
 
-               //
+               //si le mot de passe est superieur à 8 caracteurs
                if (utilisateur.getCompte().getPassword().length() >= 8){
 
-                   //
+
+                   //création de compte
                    servicesVisitors.creerCompteUser(utilisateur);
+
+                   System.out.println("Votre compte est créée avec succes");
                    return "Votre compte est créée avec succes";
                }else{
+
+                   System.out.println("Le mot de passe doit être superieur à 8 caracteurs");
                    return "Le mot de passe doit être superieur à 8 caracteurs";
                }
 
            }
        }else {
+
+           System.out.println("Cet email existe déjà");
            return "Cet email existe déjà";
        }
     }
@@ -65,6 +70,7 @@ public class VisitorController {
     @GetMapping("/afficherProbleme")
     public List<Probleme> readProbleme(){
 
+        System.out.println("lecture des problemes reçue");
         return servicesVisitors.lireProbleme();
     }
 
@@ -72,6 +78,7 @@ public class VisitorController {
     @GetMapping("/afficherProTchno")
     public List<Probleme_technologies> afficherProblemeTechnologies(){
 
+        System.out.println("lecture des problemes et leur technologies reçue");
         return servicesVisitors.afficherProblemeTechnologies();
     }
 
@@ -135,6 +142,7 @@ public class VisitorController {
         Collections.reverse(listObjectAretourner);
 
         //retourne la liste des probleme
+        System.out.println(listObjectAretourner);
         return listObjectAretourner;
     }
 
@@ -147,17 +155,19 @@ public class VisitorController {
 
         List<Object> valeur = new ArrayList<>();
         if(probleme != null){
+
             Solution solution = servicesUsers.trouverSolutionParIdProbleme(probleme.getId());
+
             if( solution != null){
+
                 valeur.add(solution);
-                System.out.println("hjklmù*");
             }else {
                 valeur.add(probleme);
             }
 
         }
 
-
+        System.out.println(valeur);
         return valeur;
     }
 
