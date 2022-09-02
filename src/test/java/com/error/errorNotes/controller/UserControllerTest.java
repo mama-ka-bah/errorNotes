@@ -15,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserControllerTest {
 
     @Autowired
-    private ServicesUsers servicesUsers;
-
-    @Autowired
     private UserController userController;
 
 
